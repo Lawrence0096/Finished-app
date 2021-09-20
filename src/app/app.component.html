@@ -1,0 +1,32 @@
+<div class="back">
+  <div class="mat-con">
+        <mat-drawer-container>
+          <mat-drawer mode="side" opened class="whatever">
+                <app-companies 
+                      (clickOnCompany) = 'CompanySelected($event)' 
+                      [companiesList] = '_companiesList'
+                ></app-companies>
+          </mat-drawer>
+
+            <mat-drawer-content>
+                <!--<app-main-table  
+                    [displayFilter] = 'switchTrue' 
+                    [displayPaginator] = 'switchTrue' 
+                    (listenParentHandler)= 'tableBtnClick($event)'>
+                </app-main-table> -->
+                    <router-outlet></router-outlet>
+
+
+
+              </mat-drawer-content>
+      </mat-drawer-container> 
+  </div>
+</div>
+
+
+
+
+
+
+
+

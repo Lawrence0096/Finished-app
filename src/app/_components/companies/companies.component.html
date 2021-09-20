@@ -1,0 +1,19 @@
+<div class="align">
+  <mat-list>
+    <div class="spank">
+      <img src="../../../assets/logo.jpg" alt="" style="width: 150px; height: 50px;">
+      <h1 id="id_h1">Stranke</h1>
+      <h1 id="id_h2" routerLink="/home">Home</h1>
+    </div>
+    <mat-list-item *ngFor="let company of companiesList"  (click)= onSelect(company)>
+      <div mat-line >
+            <button mat-button class="buttonComp" routerLink="/detail" >
+                        {{company.name}}
+                          <div mat-line class="warning-m" *ngIf= staticVar >
+                              <p id="warning">Opozorilo!</p>
+                          </div> 
+            </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>

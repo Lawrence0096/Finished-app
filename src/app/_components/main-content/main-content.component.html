@@ -1,0 +1,8 @@
+<app-main-table 
+        [displayFilter] = 'switchTrue' 
+        [displayPaginator] = 'switchTrue' 
+        (listenParentHandler)= 'tableBtnClick($event)'
+        [dataSource] = 'dataHomeTable'
+        [displayedColumns] = 'dataHomeColums'
+        >
+</app-main-table>
