@@ -39,7 +39,7 @@
 
 .box_container{
   margin-top: 10px;
-
+  border: solid 1px rgb(242, 246, 252);
   justify-content: center;
   height: auto;
   padding-top: 20px;
@@ -73,7 +73,8 @@
   font-weight: 500;
 }
 #SectionHeaders{
-  font-weight: 500;
+  font-weight: 600;
+
 }
 
 .matcardFlex{
@@ -86,4 +87,21 @@
 .cardMat{
   background: #b0fcff;
   border-radius: 10px;
+}
+
+.cont{
+  width: 95%
+}
+
+.mat-tab-body{
+  margin-top: 5px!important;
+}
+
+
+#boldName{
+  font-weight: 600px;
+}
+
+b {
+  font-weight: 600;
 }

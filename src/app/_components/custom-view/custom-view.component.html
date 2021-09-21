@@ -1,50 +1,62 @@
 <div class="splitView">
     <mat-card class="example-card1">
-          <mat-card-content [style.overflow]="'auto'" [style.height]="'86vh'">
-
-
+          <mat-card-content [style.overflow]="'auto'" [style.height]="'93vh'">
             <ng-container *ngIf="isLoading" >
-               <mat-spinner></mat-spinner>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </ng-container>
            <ng-container *ngIf="!isLoading" >
-            <h1 style="font-family: 'Roboto', sans-serif; font-weight: 500;">Stranka: {{(_selectedCompany$ | async)?.name}}</h1>     
+            <h1 style="font-family: 'Roboto', sans-serif; font-weight: 700;">STRANKA: {{(_selectedCompany$ | async)?.name}}</h1>     
             <div class="box_container">
               <div id="contentContainer">
-                <h3 id="ContainerHeaders">SQL</h3>
+                <h2 id="ContainerHeaders">SQL</h2>
                 <p id='ContainerPara'>
-                  Data directory:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.datadir}} <br>
-                  Errors:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.errors}} <br>
-                  Last start:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.last_start}} <br>
-                  Slow quaries:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.["slow queries"]}} <br>
-                  SSL:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.ssl}}
-                  Version:  {{(_selectedCompany$ | async)?.companyDetails?.mysql?.version}}
+                  Data directory: <b>{{(_selectedCompany$ | async)?.companyDetails?.mysql?.datadir}}</b>   <br>
+                  Errors: <b>{{(_selectedCompany$ | async)?.companyDetails?.mysql?.errors}}</b>   <br>
+                  Last start: <b> {{(_selectedCompany$ | async)?.companyDetails?.mysql?.last_start}}</b>  <br>
+                  Slow quaries: <b>{{(_selectedCompany$ | async)?.companyDetails?.mysql?.["slow queries"]}}</b>   <br>
+                  SSL: <b>{{(_selectedCompany$ | async)?.companyDetails?.mysql?.ssl}}</b>  <br>
+                  Version: <b>{{(_selectedCompany$ | async)?.companyDetails?.mysql?.version}}</b>  
                 </p>
               </div>
             </div>
             <div class="box_container">
               <div id="contentContainer">
-                <h3 id="ContainerHeaders">System</h3>
+                <h2 id="ContainerHeaders">SYSTEM INFORMATION</h2>
                 <br>
                     <div id='ContainerPara'> 
-                        <p id="SectionHeaders">CPU:</p>  <br>
+                        <h3 id="SectionHeaders">CPU:</h3>  <br>
                         <p id="subPara" style="margin-top: -30px;">
-                          Count:  {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}} <br>
-                          Usage:  {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}} <br>
+                          Count: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}</b>  <br>
+                          Usage: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}</b>  <br>
                         </p>
                     </div>
-                    <div id='ContainerPara'> <br>
+                   <!-- <div id='ContainerPara'> <br>
                           <div *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives" ><br>
                             {{item.volume.toString()| slice:0:3}} <br>
                             {{item.installed.toString()| slice:0:3}} <br>
                             {{item.free.toString()| slice:0:3}} <br>
                           </div>
+                    </div>-->
+                    <div id='ContainerPara'> <br>
+                        <div class="cont">
+                          <h3 id="SectionHeaders">DISKS:</h3>  
+                          <mat-tab-group  dynamicHeight>
+                            <mat-tab *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives" label= "{{item.volume.toString()| slice:0:3}} Disk">
+                              <div class="example-small-box mat-elevation-z4">
+                               Installed: <b>{{item.installed.toString()| slice:0:3}} GB</b>   <br>
+                               Free: <b>{{item.free.toString()| slice:0:3}} GB</b>   <br>
+                              </div>
+                            </mat-tab>
+                          </mat-tab-group>
+                        </div>                          
                     </div>
                     <br>
                     <br>
                     <br>
                     <div id='ContainerPara'> 
-                          Boot: {{(_selectedCompany$ | async)?.companyDetails?.system?.os?.boot}} <br>
-                          Version: {{(_selectedCompany$ | async)?.companyDetails?.system?.os?.version}} <br>
+                          <h3 id="SectionHeaders">OPERATING SYSTEM</h3>
+                          Boot: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.os?.boot}}</b>  <br>
+                          Version: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.os?.version}}</b>  <br>
                           <br> 
                           <br>
                     </div>
@@ -55,47 +67,6 @@
                       Installed: {{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:3}} GB <br>
                     </div>
                     <br>
-                    <!--Temporary-->
-                    <!-- <div id='ContainerPara'> 
-                      <p id="SectionHeaders" style="margin-top: -10px;">Drives: </p> 
-
-                      <div class="matcardFlex">
-                          <mat-card class="cardMat">
-                            <p id="SectionHeaders">Disk C: </p> 
-                             <p id="subPara"  >
-                               Free space:  {{(_selectedCompany$  | async  ) ?.companyDetails?.system?.drives?.["C:"]?.free?.toString()| slice:0:3}} Gb <br>
-                               Installed:  {{(_selectedCompany$ | async)?.companyDetails?.system?.drives?.["C:"]?.installed?.toString()| slice:0:3 }} Gb <br>
-                             </p>
-                          </mat-card>
-
-                          <mat-card class="cardMat">
-                            <p id="SectionHeaders" style="margin-top:-15px, ">Disk D: </p> 
-                            <p id="subPara" >
-                            Free space  {{(_selectedCompany$ | async)?.companyDetails?.system?.drives?.["D:"]?.free?.toString()| slice:0:3}} Gb <br>
-                            Installed {{(_selectedCompany$ | async)?.companyDetails?.system?.drives?.["D:"]?.installed?.toString()| slice:0:3}} Gb <br>  
-                            </p>
-                          </mat-card>
-                          <mat-card class="cardMat">
-                            <p id="SectionHeaders" style="margin-top:-15px,">Disk F: </p> 
-                            <p id="subPara" >
-                              Free space {{(_selectedCompany$ | async)?.companyDetails?.system?.drives?.["E:"]?.free?.toString()| slice:0:3}} Gb <br>
-                              Installed {{(_selectedCompany$ | async)?.companyDetails?.system?.drives?.["E:"]?.installed?.toString()| slice:0:3}} Gb <br>
-                            </p>
-                          </mat-card>
-                        </div>
-                        <br>
-                        <br>
-                        <p id="SectionHeaders" style="margin-top: -10px;">Operating System </p> 
-                          <p>
-                            Version {{(_selectedCompany$ | async)?.companyDetails?.system?.os?.boot}}<br>
-                            Boot  {{(_selectedCompany$ | async)?.companyDetails?.system?.os?.version}} <br>
-                          </p> <br>
-                        <p id="SectionHeaders" style="margin-top: -10px;">Ram </p> 
-                          <p>
-                            Installed: {{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:3}} Gb <br>
-                            Free space: {{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free?.toString()| slice:0:3}} Gb <br>
-                          </p> 
-                    </div> -->
               </div>
             </div>
             <div class="box_container">
@@ -144,7 +115,7 @@
                           Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.min}} <br>
                         </p>
 
-                  <div id="contentContainer">
+                  <div>
                     <h3 id="ContainerHeaders">Programs</h3>
                     <p id='ContainerPara'>
                       Active:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.active}} <br>
@@ -152,7 +123,7 @@
                     </p>
                   </div>
 
-                  <div id="contentContainer">
+                  <div>
                     <h3 id="ContainerHeaders">Service</h3>
                     <p id='ContainerPara'>
                       Last restart:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.last_restart}} <br>
@@ -162,21 +133,21 @@
                     </p>
                   </div>
 
-                  <div id="contentContainer">
+                  <div>
                     <h3 id="ContainerHeaders">Tablets</h3>
                     <p id='ContainerPara'>
                       Count:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.count}} <br>
                       Online: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online}} <br>
                     </p>
                   </div>
-                  <div id="contentContainer">
+                  <div>
                     <h3 id="ContainerHeaders">Tachodl</h3>
                     <p id='ContainerPara'>
                       Tachodl | drivers:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.drivers?.state}} <br>
                       Tachodl | vehicles: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.vehicles?.state}} <br>
                     </p>
                   </div>
-                  <div id="contentContainer">
+                  <div>
                     <h3 id="ContainerHeaders">Vehicles</h3>
                     <p id='ContainerPara'>
                       Active:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.active}} <br>
