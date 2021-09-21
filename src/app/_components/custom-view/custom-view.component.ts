@@ -8,6 +8,8 @@ import { Company } from 'src/app/_interfaces/Company';
 import { MockIn } from 'src/app/_interfaces/Mock-in';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/internal/operators/map';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 
 
@@ -19,6 +21,14 @@ import { map } from 'rxjs/internal/operators/map';
 export class CustomViewComponent implements OnInit {
 
 
+  //color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  value: any
+  bufferValue = 75;
+
+
+
+
   public _selectedCompany$ = this.namefetchService.selectedCompany$.asObservable();
   
   public selectedCompany?: any = this._selectedCompany$;
@@ -27,8 +37,8 @@ export class CustomViewComponent implements OnInit {
 
   constructor(
     private  maintableService : MainTableService, 
-     private customViewService : CustomViewService, 
-     private namefetchService : NamefetchService) {  }
+    private customViewService : CustomViewService, 
+    private namefetchService : NamefetchService) {  }
  
 
   mainTableInfo: any [] =[];
@@ -73,9 +83,13 @@ export class CustomViewComponent implements OnInit {
             company.companyDetails.system.drives.forEach(drive => {
               // @ts-ignore
               console.log(drive)
+              
             })
             console.log()
             this.isLoading = false;
+
+
+
           })
         }       
     })
@@ -106,6 +120,7 @@ export class CustomViewComponent implements OnInit {
       //this.setupTable()
      })
   }
+
 }
 
 

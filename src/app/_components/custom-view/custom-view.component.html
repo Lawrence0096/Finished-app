@@ -2,7 +2,7 @@
     <mat-card class="example-card1">
           <mat-card-content [style.overflow]="'auto'" [style.height]="'93vh'">
             <ng-container *ngIf="isLoading" >
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate" style="height: 5px!important;" ></mat-progress-bar>
             </ng-container>
            <ng-container *ngIf="!isLoading" >
             <h1 style="font-family: 'Roboto', sans-serif; font-weight: 700;">STRANKA: {{(_selectedCompany$ | async)?.name}}</h1>     
@@ -24,11 +24,31 @@
                 <h2 id="ContainerHeaders">SYSTEM INFORMATION</h2>
                 <br>
                     <div id='ContainerPara'> 
-                        <h3 id="SectionHeaders">CPU:</h3>  <br>
-                        <p id="subPara" style="margin-top: -30px;">
-                          Count: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}</b>  <br>
-                          Usage: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}</b>  <br>
-                        </p>
+                       <!-- <h3 id="SectionHeaders">CPU:</h3>  <br>
+                              <p id="subPara" style="margin-top: -30px;">
+                                Count: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}</b>  <br>
+                                Usage: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}</b>  <br>
+                              </p>  -->
+
+                        <h3 id="SectionHeaders">CPU:</h3>
+                        <section class="example-section" style="width: 95%;">
+                          <mat-progress-bar
+                              class="green-progress"
+                              [mode]="mode"
+                              value="{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}"
+                              [bufferValue]="bufferValue">
+                          </mat-progress-bar>
+                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Count: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}  </div>
+                        </section>
+                        <section class="example-section" style="width: 95%;">
+                          <mat-progress-bar
+                              class="green-progress"
+                              [mode]="mode"
+                              value="{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}"
+                              [bufferValue]="bufferValue">
+                          </mat-progress-bar>
+                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Usage: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}  </div>
+                        </section>
                     </div>
                    <!-- <div id='ContainerPara'> <br>
                           <div *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives" ><br>
@@ -40,19 +60,33 @@
                     <div id='ContainerPara'> <br>
                         <div class="cont">
                           <h3 id="SectionHeaders">DISKS:</h3>  
-                          <mat-tab-group  dynamicHeight>
-                            <mat-tab *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives" label= "{{item.volume.toString()| slice:0:3}} Disk">
-                              <div class="example-small-box mat-elevation-z4">
-                               Installed: <b>{{item.installed.toString()| slice:0:3}} GB</b>   <br>
-                               Free: <b>{{item.free.toString()| slice:0:3}} GB</b>   <br>
-                              </div>
-                            </mat-tab>
-                          </mat-tab-group>
+                          <div class="DiskDisplay">
+                              <ng-container *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives">
+                                <mat-card class="MatcardDisk">
+                                  {{item.volume.toString()| slice:0:3}}: 
+                                  <br>
+                                 <b> {{item.installed.toString()| slice:0:3}} GB </b>
+                                  <br>
+                                 <b> {{item.free.toString()| slice:0:3}} GB </b>
+                                </mat-card>  
+                              </ng-container> 
+                          </div>
+                          
+                              
+                              
+                              
+                              <!--OLD spicy Tab switch
+                              <mat-tab-group  mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+                                <mat-tab *ngFor="let item of (_selectedCompany$ | async)?.companyDetails?.system?.drives" label= "{{item.volume.toString()| slice:0:3}} Disk">
+                                  <p style="margin-top: 10px; padding: 10px;"> Installed: <b>{{item.installed.toString()| slice:0:3}} GB</b> <br>
+                                    Free: <b>{{item.free.toString()| slice:0:3}} GB</b>  <br>
+                                  </p>  
+                                </mat-tab>
+                              </mat-tab-group>-->
                         </div>                          
                     </div>
                     <br>
-                    <br>
-                    <br>
+                    <br>                   
                     <div id='ContainerPara'> 
                           <h3 id="SectionHeaders">OPERATING SYSTEM</h3>
                           Boot: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.os?.boot}}</b>  <br>
@@ -60,101 +94,149 @@
                           <br> 
                           <br>
                     </div>
-                    <br>
                     <div id='ContainerPara'> 
-                      RAM <br>
-                      Free: {{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free?.toString()| slice:0:3 }} GB <br>
-                      Installed: {{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:3}} GB <br>
+                      <h3 id="SectionHeaders">RAM</h3>
+                      Free: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free?.toString()| slice:0:3 }} GB</b>  <br>
+                      Installed: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:3}} GB</b>   <br>
+                      <br>
+                      <br>
+                        <!--   <mat-progress-spinner
+                            class="example-margin"
+                            value= "{{824 *100 / (824+655)}}" ></mat-progress-spinner>
+                            <p>{{824 *100 / (824+655) }}</p>-->                                                                       
                     </div>
-                    <br>
+                  
               </div>
             </div>
             <div class="box_container">
               <div id="contentContainer">
-                <h3 id="ContainerHeaders">TrackNav</h3>
+                <h2 id="ContainerHeaders">TrackNav</h2>
                 <div id='ContainerPara'>
-                        <h1>Inbound</h1>
-                        <p>
-                          Inbound | Https intin <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.min}} <br>
-                        </p>
-                        <p>
-                          Inbound | intin <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.min}} <br>
-                        </p>
-                        <p>
-                          Inbound | sys_tcp_io <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.min}} <br>
-                        </p>                        
+                    <h3 id="SectionHeaders">Inbound</h3>  
+                      <div  class="flexBound">
+                            <div>
+                              <mat-card class="matcard-padding">
+                              <h4 id="SectionHeaders">Https initin:</h4>
+                              <p>
+                                Avg: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.avg}}</b><br>
+                                Max:  <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.max}}</b><br>
+                                Min:  <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.min}}</b><br>  
+                              </p>  
+                              </mat-card>
+                            </div>
+                            <div>
+                              <mat-card class="matcard-padding">
+                                <h4 id="SectionHeaders">Intin:</h4>
+                                Avg:  <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.avg}}</b> <br>
+                                Max: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.max}}</b><br>
+                                Min: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.min}}</b> <br>
+                              </mat-card>
+                            </div>
+                            <div>
+                              <mat-card class="matcard-padding">
+                              <h4 id="SectionHeaders">sys_tcp_io:</h4> 
+                                Avg: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.avg}}</b> <br>
+                                Max: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.max}}</b> <br>
+                                Min: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.min}}</b> <br>
+                              </mat-card>
+                            </div>  
                       </div>
+                                              
+                      </div>
+                      <br>
+                      <br>
                 <div id='ContainerPara'>
-                  <h1>TrackNav</h1>
-                        <h2>OutBound</h2>
-                        <p>
-                          Inbound | Https intin <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.min}} <br>
-                        </p>
-                        <p>
-                          Inbound | intin <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.min}} <br>
-                        </p>
-                        <p>
-                          Sys_tcp_io | sys_tcp_io <br>
-                          Avg: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.avg}} <br>
-                          Max: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.max}} <br>
-                          Min: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.min}} <br>
-                        </p>
 
-                  <div>
-                    <h3 id="ContainerHeaders">Programs</h3>
-                    <p id='ContainerPara'>
-                      Active:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.active}} <br>
-                      Running {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.running}} <br>
-                    </p>
+                  <h3 id="SectionHeaders">Outbound</h3>  
+                  <div  class="flexBound">
+                        <div>
+                          <mat-card class="matcard-padding">
+                          <h4 id="SectionHeaders">Https initout:</h4>
+                          <p>
+                            Avg: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.avg}}</b><br>
+                            Max:  <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.max}}</b><br>
+                            Min:  <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.min}}</b><br>  
+                          </p>  
+                          </mat-card>
+                        </div>
+                        <div>
+                          <mat-card class="matcard-padding">
+                            <h4 id="SectionHeaders">Intout:</h4>
+                            Avg:  <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.avg}}</b> <br>
+                            Max: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.max}}</b><br>
+                            Min: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.min}}</b> <br>
+                          </mat-card>
+                        </div>
+                        <div>
+                          <mat-card class="matcard-padding">
+                          <h4 id="SectionHeaders">sys_tcp_io:</h4> 
+                            Avg: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.avg}}</b> <br>
+                            Max: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.max}}</b> <br>
+                            Min: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.min}}</b> <br>
+                          </mat-card>
+                        </div>  
                   </div>
-
-                  <div>
-                    <h3 id="ContainerHeaders">Service</h3>
-                    <p id='ContainerPara'>
-                      Last restart:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.last_restart}} <br>
-                      Managed programs {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.managed_programs_ok}} <br>
-                      Planned restart {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.planned_restart}} <br>
-                      Running {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.running}} <br>
-                    </p>
-                  </div>
-
-                  <div>
+                  <br>
+                  <mat-card class="matcard-padding2">
+                    <div>
+                      <h3 id="ContainerHeaders">Programs</h3>
+                      <div style="margin-top: -10px;">
+                        Active: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.active}}</b>  <br>
+                        Running: <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.running}}</b>  <br>
+                        <section class="example-section" style="width: 95%; margin-top: 5px;">
+                          <mat-progress-bar
+                              class="green-progress"
+                              [mode]="mode"
+                              value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.running! * 100 / (_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.active!}}"
+                              [bufferValue]="bufferValue">
+                          </mat-progress-bar>
+                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" >
+                                   Used: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.running! * 100 / (_selectedCompany$ | async)?.companyDetails?.tracknav?.programs?.active!}}%
+                              </div>
+                        </section>
+                      </div>
+                    
+                    </div>
+                  </mat-card>  
+                  <mat-card class="matcard-padding2">
+                    <div>
+                      <h3 id="ContainerHeaders">Service</h3>
+                      <p id='ContainerPara'>
+                        Last restart: <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.last_restart}} </b> <br>
+                        Managed programs<b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.managed_programs_ok}} </b> <br>
+                        Planned restart<b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.planned_restart}} </b> <br>
+                        Running <b>{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.service?.running}} </b> <br>
+                      </p>
+                    </div>
+                </mat-card>    
+                <mat-card class="matcard-padding2">
+                  <div> 
                     <h3 id="ContainerHeaders">Tablets</h3>
                     <p id='ContainerPara'>
-                      Count:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.count}} <br>
-                      Online: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online}} <br>
+                      Count: <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.count}} </b> <br>
+                      Online:<b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online}} </b> <br>
                     </p>
                   </div>
+                </mat-card>
+                <mat-card class="matcard-padding2">
                   <div>
                     <h3 id="ContainerHeaders">Tachodl</h3>
                     <p id='ContainerPara'>
-                      Tachodl | drivers:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.drivers?.state}} <br>
-                      Tachodl | vehicles: {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.vehicles?.state}} <br>
+                      Drivers: <b> <span style="color: green;">{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.drivers?.state}}</span> </b> <br>
+                      Vehicles:<b>  <span style="color: green;"> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tachodl?.vehicles?.state}}</span> </b> <br>
                     </p>
                   </div>
+                </mat-card>
+                <mat-card class="matcard-padding2">
                   <div>
                     <h3 id="ContainerHeaders">Vehicles</h3>
                     <p id='ContainerPara'>
-                      Active:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.active}} <br>
-                      Count:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count}} <br>
-                      Online:  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.online}} <br>
+                      Active: <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.active}} </b> <br>
+                      Count:<b>  {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count}} </b> <br>
+                      Online: <b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.online}} </b> <br>
                     </p>
                   </div>
+                </mat-card>
                 </div>
               </div>
             </div>
@@ -162,7 +244,7 @@
           </mat-card-content>
       </mat-card>
       <div class="example-card2">
-        <h1 style="margin-top: 15px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogotki za podjetje</h1>
+        <h1 style="margin-top: 15px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje</h1>
         <app-main-table
               specificityattr
               [displayFilter] = 'switchFalse' 

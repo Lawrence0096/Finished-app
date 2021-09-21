@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Poppins', sans-serif; }
+
+
+.orange-spinner circle{
+    stroke:orange !important;
+  }
+
+  .green-progress .mat-progress-bar-fill::after {
+    background-color: #7ad4f8 !important;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #7ad4f8!important;
+  }
