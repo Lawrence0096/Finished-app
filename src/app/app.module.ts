@@ -23,6 +23,9 @@ import { MainContentComponent } from './_components/main-content/main-content.co
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTabsModule} from '@angular/material/tabs';
+import { PieComponent } from './_components/pie/pie.component';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     CompaniesComponent,
     CustomViewComponent,
     MainTableComponent,
-    MainContentComponent
+    MainContentComponent,
+    PieComponent
   ],
 
   imports: [
@@ -51,7 +55,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatInputModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatTabsModule
+    MatTabsModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,6 +20,18 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 })
 export class CustomViewComponent implements OnInit {
 
+  //PIE graph test
+  GraphData: any [] = [];
+
+  surveyData = [
+    { name: 'Bikes', value: 105000 },
+    { name: 'Cars', value: 55000 },
+    { name: 'Trucks', value: 15000 },
+    { name: 'Scooter', value: 150000 },
+    { name: 'Bus', value: 20000 }
+  ];
+
+  //
 
   //color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
@@ -31,7 +43,6 @@ export class CustomViewComponent implements OnInit {
 
   public _selectedCompany$ = this.namefetchService.selectedCompany$.asObservable();
   
-  public selectedCompany?: any = this._selectedCompany$;
 
   public selectedCompanyArray: any
 
@@ -74,18 +85,22 @@ export class CustomViewComponent implements OnInit {
   ngOnInit(): void {
     //specifični podatki stranke
      this._selectedCompany$
-    .subscribe((company: Company | null) => {
-        if(company !== null) {
-          console.log(company)
-          this.customViewService.getCustomers(company.id)
+    .subscribe((res: Company | null) => {
+        if(res !== null) {
+          this.customViewService.getCustomers(res.id)
           .subscribe(data => {
-            company.companyDetails = data; 
-            company.companyDetails.system.drives.forEach(drive => {
-              // @ts-ignore
-              console.log(drive)
-              
-            })
-            console.log()
+            console.log(data.system.ram.free)
+            res.companyDetails = data; 
+            this.GraphData.push(
+              {name: "Free", value : data.system.ram.free / 1000},
+              {name: "Installed", value : data.system.ram.installed / 1000}
+            )  
+
+            /*company.companyDetails.system.drives.forEach(drive => {
+             @ts-ignore
+            console.log(drive)
+            }
+            )*/
             this.isLoading = false;
 
 
@@ -94,7 +109,6 @@ export class CustomViewComponent implements OnInit {
         }       
     })
 
-    console.log(this._selectedCompany$)
 
 
 

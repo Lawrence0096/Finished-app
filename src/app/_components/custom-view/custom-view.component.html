@@ -32,14 +32,17 @@
 
                         <h3 id="SectionHeaders">CPU:</h3>
                         <section class="example-section" style="width: 95%;">
-                          <mat-progress-bar
+                         Count: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}} <br>
+                         Usage: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}} % 
+                          <!--<mat-progress-bar
                               class="green-progress"
                               [mode]="mode"
                               value="{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}"
                               [bufferValue]="bufferValue">
-                          </mat-progress-bar>
-                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Count: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}  </div>
+                          </mat-progress-bar> 
+                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Count: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.count}}  </div> -->
                         </section>
+                        <br>
                         <section class="example-section" style="width: 95%;">
                           <mat-progress-bar
                               class="green-progress"
@@ -47,7 +50,7 @@
                               value="{{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}"
                               [bufferValue]="bufferValue">
                           </mat-progress-bar>
-                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Usage: {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}}  </div>
+                                <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > {{(_selectedCompany$ | async)?.companyDetails?.system?.cpu?.usage}} %  </div>
                         </section>
                     </div>
                    <!-- <div id='ContainerPara'> <br>
@@ -65,9 +68,9 @@
                                 <mat-card class="MatcardDisk">
                                   {{item.volume.toString()| slice:0:3}}: 
                                   <br>
-                                 <b> {{item.installed.toString()| slice:0:3}} GB </b>
+                                  Installed:<b> {{item.installed.toString()| slice:0:3}} GB </b>
                                   <br>
-                                 <b> {{item.free.toString()| slice:0:3}} GB </b>
+                                  Free space: <b> {{item.free.toString()| slice:0:3}} GB </b>
                                 </mat-card>  
                               </ng-container> 
                           </div>
@@ -96,16 +99,36 @@
                     </div>
                     <div id='ContainerPara'> 
                       <h3 id="SectionHeaders">RAM</h3>
-                      Free: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free?.toString()| slice:0:3 }} GB</b>  <br>
-                      Installed: <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:3}} GB</b>   <br>
-                      <br>
-                      <br>
-                        <!--   <mat-progress-spinner
-                            class="example-margin"
-                            value= "{{824 *100 / (824+655)}}" ></mat-progress-spinner>
-                            <p>{{824 *100 / (824+655) }}</p>-->                                                                       
+                      Free: <span id="BlueID"> <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free?.toString()| slice:0:1 }} GB</b> </span>  <br>
+                      Installed: <span id="RedID"> <b>{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:2}} GB</b> </span>   <br>
+                      Total:   <b> {{((_selectedCompany$ | async)?.companyDetails?.system?.ram?.free! + (_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed!).toString() | slice:0:2 }} GB</b> 
+                      <div style="display: flex; justify-content: center;">
+                        <div style="height: 350px; width: 500px; margin-top: -60px;">
+
+
+                          <ngx-charts-pie-chart
+                            [results]="GraphData"
+                            [legend]="false"
+                            [legendTitle]="'Vehicle Survey'"
+                            [view]="[400,300]"
+                            [labels]="false" >
+                          </ngx-charts-pie-chart>
+
+                          <!--
+                          <ngx-charts-pie-grid
+                            [results]="GraphData"
+                            [tooltipDisabled] = "false"
+                            [view]= "[500,400]">
+                          </ngx-charts-pie-grid>-->
+                        </div>   
+     
+                      </div>                
                     </div>
-                  
+                    <div style="width: 100%; align-items: center; text-align: center;">
+                     <b> <p style="margin-top: -20px; font-size: 16px;">
+                       
+                    </b>
+                    </div>
               </div>
             </div>
             <div class="box_container">
@@ -195,7 +218,6 @@
                               </div>
                         </section>
                       </div>
-                    
                     </div>
                   </mat-card>  
                   <mat-card class="matcard-padding2">

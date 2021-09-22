@@ -146,6 +146,19 @@ b {
 
 .MatcardDisk{
   border: 2px solid #f1f1f1;
-  min-width: 20%;
-  max-width: 20%;
+  min-width: 23%;
+  max-width: 23%;
+}
+
+.pie-grid{
+  display: flex;
+  gap: 300px;
+}
+
+#RedID{
+  color:  #7AA3E5 ;
+
+}
+#BlueID{
+ color:  #A8385D;
 }
