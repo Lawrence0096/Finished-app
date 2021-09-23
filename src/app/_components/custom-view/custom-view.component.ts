@@ -30,8 +30,18 @@ export class CustomViewComponent implements OnInit {
     { name: 'Scooter', value: 150000 },
     { name: 'Bus', value: 20000 }
   ];
+  // @ts-ignore
+  /*    customColors = [
+        { 
+          name: 'Free',
+          value: '#ADFF2F'
+        }
+    ];*/
 
-  //
+  slicer: number = 2
+
+
+
 
   //color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
@@ -59,6 +69,8 @@ export class CustomViewComponent implements OnInit {
   switchTrue = true;
   switchFalse = false;
 
+  //Prikaz za Note iz backenda
+  noDataSwitch: boolean = true
 
   companyDetail: any = {};
   companyDetail2: any = {};
@@ -95,7 +107,7 @@ export class CustomViewComponent implements OnInit {
               {name: "Free", value : data.system.ram.free / 1000},
               {name: "Installed", value : data.system.ram.installed / 1000}
             )  
-
+            
             /*company.companyDetails.system.drives.forEach(drive => {
              @ts-ignore
             console.log(drive)
@@ -103,8 +115,14 @@ export class CustomViewComponent implements OnInit {
             )*/
             this.isLoading = false;
 
-
-
+            if (data.note.length > 0 ){
+              this.noDataSwitch = true
+            } else if (data.note.length == 0){
+              this.noDataSwitch = false
+            }  else {
+              this.noDataSwitch =true}        
+              
+             console.log(data.note.length) 
           })
         }       
     })

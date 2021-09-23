@@ -56,7 +56,7 @@ export class MainContentComponent implements OnInit {
 
   }
   
-
+  //https://stackoverflow.com/questions/68082556/angular-mat-table-display-dynamic-data-from-key-value-json-in-each-row
 
   getDynamicIndex(): void {
     this.maintableService.getTableData()
