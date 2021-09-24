@@ -12,22 +12,25 @@ export class CustomViewService {
 
 
   constructor(private http: HttpClient) { }
-
+  
   customViewUrl =  'http://10.2.2.20:8765/customers/1';
   private _endpointURl = 'http://10.2.2.20:8765/customers/'
 
+
+
+  
   getcustomer(): Observable<CompanyDetails[]>{
     return this.http.get<CompanyDetails[]>(this.customViewUrl)
   }
-
+  //old
   getCustomer(id: number): Observable<CompanyDetails>{
     return this.http.get<CompanyDetails>(this.customViewUrl)
   }
-
+  //in user
   getCustomers(customerId: number): Observable<CompanyDetails>{
     return this.http.get<CompanyDetails>(`${this._endpointURl}${customerId}`).pipe(delay(1000))
   }
 
-
+  
 
 }

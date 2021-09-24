@@ -7,7 +7,7 @@ import { MainContentComponent } from './_components/main-content/main-content.co
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: 'home', component: MainContentComponent},
-  {path: 'detail', component: CustomViewComponent }
+  {path: 'customer/:id', component: CustomViewComponent }
 ];
 
 @NgModule({

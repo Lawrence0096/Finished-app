@@ -5,9 +5,9 @@
       <h1 id="id_h1">Stranke</h1>
       <h1 id="id_h2" routerLink="/home">Home</h1>
     </div>
-    <mat-list-item *ngFor="let company of companiesList"  (click)= onSelect(company)>
+    <mat-list-item *ngFor="let company of companiesList" (click)= onSelect2(company.name)  (click)= onSelect(company)>
       <div mat-line >
-            <button mat-button class="buttonComp" routerLink="/detail" >
+            <button mat-button class="buttonComp"  >
                         {{company.name}}
                           <div mat-line class="warning-m" *ngIf= staticVar >
                               <p id="warning">Opozorilo!</p>

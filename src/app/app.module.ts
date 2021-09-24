@@ -25,6 +25,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PieComponent } from './_components/pie/pie.component';
 import { NgxChartsModule }from '@swimlane/ngx-charts';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -57,7 +58,9 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatTabsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatFormFieldModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

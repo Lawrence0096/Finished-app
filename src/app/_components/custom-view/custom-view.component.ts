@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MainTableService } from 'src/app/_services/main-table.service';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { CompanyDetails } from 'src/app/_interfaces/Company-details';
@@ -10,8 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/internal/operators/map';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
-
-
+import { MatExpansionPanel } from '@angular/material/expansion';
+import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-custom-view',
@@ -19,6 +19,44 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
   styleUrls: ['./custom-view.component.css']
 })
 export class CustomViewComponent implements OnInit {
+
+
+  @ViewChild(MatAccordion) accordion?: MatAccordion;
+
+  isOpened?: boolean
+  isOpened2?: boolean
+  isOpened3?: boolean
+  isOpened4?: boolean
+  panelOpenState = true;
+
+  stayOpened(){
+    this.isOpened = true
+  }
+  stayOpened2(){
+    this.isOpened2 = true
+  }
+  stayOpened3(){
+    this.isOpened3 = true
+  }
+  stayOpened4(){
+    this.isOpened3 = true
+  }
+
+  openAll(){
+    this.isOpened = true
+    this.isOpened2 = true
+    this.isOpened3 = true
+    this.isOpened4 = true
+  }
+  closeAll(){
+    this.isOpened = false
+    this.isOpened2 = false
+    this.isOpened3 = false
+    this.isOpened4 = false
+  }
+
+
+
 
   //PIE graph test
   GraphData: any [] = [];
