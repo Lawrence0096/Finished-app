@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import { MockIn } from 'src/app/_interfaces/Mock-in';
-import { MainTableService } from 'src/app/_services/main-table.service';
+
+import { MockData } from '../mock-data';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -18,10 +18,10 @@ export class MainTableComponent implements OnInit {
   //dataSource!: MatTableDataSource<MockIn> 
 
 
-  constructor(private maintableService : MainTableService) {}  
+  constructor() {}  
   
   @Input()displayedColumns: string[] = []; 
-  @Input()dataSource!: MatTableDataSource<MockIn> 
+  @Input()dataSource!: MatTableDataSource<MockData> 
 
   @Output() listenParentHandler : EventEmitter<any> = new EventEmitter();
 

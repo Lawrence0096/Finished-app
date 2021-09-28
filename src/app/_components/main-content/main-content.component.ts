@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MockIn } from 'src/app/_interfaces/Mock-in';
-import { MainTableService } from 'src/app/_services/main-table.service';
+import { MockData } from './mock-data';
+import { TestTableService } from './test-table.service';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -33,20 +33,20 @@ export class MainContentComponent implements OnInit {
   //Podatki za table
 
 
-  dataHomeTable!: MatTableDataSource<MockIn>
+  dataHomeTable!: MatTableDataSource<MockData>
   dataHomeColums: string[] = [];
 
 
-  dataCompanyTable!:MatTableDataSource<MockIn>
+  dataCompanyTable!:MatTableDataSource<MockData>
   dataCompanyColums: string[] = [];
 
 
-  constructor(private maintableService : MainTableService) { }
+  constructor(private maintableService : TestTableService) { }
 
   ngOnInit(): void {
     this.maintableService.getTableData()
     .subscribe((res) =>{
-      this.dataHomeTable = new MatTableDataSource<MockIn>(res);
+      this.dataHomeTable = new MatTableDataSource<MockData>(res);
       console.log(this.dataHomeTable);
     })
     this.getDynamicIndex()

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MainTableService } from 'src/app/_services/main-table.service';
+import { MainTableService } from '../../_services/main-table.service';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { CompanyDetails } from 'src/app/_interfaces/Company-details';
-import { CustomViewService } from 'src/app/_services/custom-view.service';
-import { NamefetchService } from 'src/app/_services/namefetch.service';
+import { CustomViewService } from '../../_services/custom-view.service';
+import { NamefetchService } from '../../_services/namefetch.service'
 import { Company } from 'src/app/_interfaces/Company';
 import { MockIn } from 'src/app/_interfaces/Mock-in';
 import { MatTableDataSource } from '@angular/material/table';
@@ -55,10 +55,7 @@ export class CustomViewComponent implements OnInit {
     this.isOpened4 = false
   }
 
-
-
-
-  //PIE graph test
+  /*PIE graph test
   GraphData: any [] = [];
 
   surveyData = [
@@ -68,23 +65,13 @@ export class CustomViewComponent implements OnInit {
     { name: 'Scooter', value: 150000 },
     { name: 'Bus', value: 20000 }
   ];
-  // @ts-ignore
-  /*    customColors = [
-        { 
-          name: 'Free',
-          value: '#ADFF2F'
-        }
-    ];*/
 
-  slicer: number = 2
-
-
-
-
-  //color: ThemePalette = 'primary';
+  slicer: number = 2 
+  */
+  color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
   value: any
-  bufferValue = 75;
+  bufferValue = 75; 
 
 
 
@@ -121,36 +108,26 @@ export class CustomViewComponent implements OnInit {
 
 
   //Pridobi podatke iz APIja, ki bo predstavilo specifične podatke za uporabnika
-  getCustomViewDetails(): void {
-    this.customViewService.getcustomer().subscribe
-    (res => { this.companyDetail = res; console.log(this.companyDetail)})
-  }
   
   //Pridobi object, ko uporabnik klikne na uporabnika na SideNavu
-  getNamesSideNav(): void {
-    //this.namefetchService.myMethod$?.subscribe((res) => {this.sideNavData = res, console.log(this.sideNavData, 'Hello')})
-  }
+  
+    //ths.namefetchService.myMethod$?.subscribe((res) => {this.sideNavData = res, console.log(this.sideNavData, 'Hello')})
+  
 
 
   ngOnInit(): void {
     //specifični podatki stranke
+    
+
      this._selectedCompany$
     .subscribe((res: Company | null) => {
+      console.log(res, 'response')
         if(res !== null) {
           this.customViewService.getCustomers(res.id)
           .subscribe(data => {
-            console.log(data.system.ram.free)
-            res.companyDetails = data; 
-            this.GraphData.push(
-              {name: "Free", value : data.system.ram.free / 1000},
-              {name: "Installed", value : data.system.ram.installed / 1000}
-            )  
             
-            /*company.companyDetails.system.drives.forEach(drive => {
-             @ts-ignore
-            console.log(drive)
-            }
-            )*/
+            res.companyDetails = data; 
+            console.log ( "hello" , data)                 
             this.isLoading = false;
 
             if (data.note.length > 0 ){
@@ -169,10 +146,8 @@ export class CustomViewComponent implements OnInit {
 
 
     //podatki za tablo
-    this.maintableService.getTableData().subscribe( res => console.log (res)
-    )
-    this.getCustomViewDetails();
-    this.getNamesSideNav();
+   
+
     this.maintableService.getTableData2()
     .subscribe((res) => {
       this.dataCompanyTable = new MatTableDataSource<MockIn>(res);

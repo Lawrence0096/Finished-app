@@ -17,18 +17,19 @@ import { Router } from '@angular/router';
 export class CompaniesComponent implements OnInit {
 
   username: string = "Hello";
-
   staticVar: boolean = false;
   paramsSubscription?: Subscription;
-
   @Input() companiesList: any[] = [];
   //customersObject?: Customer = undefined
-
   @Output() clickOnCompany : EventEmitter<any> = new EventEmitter();
 
+
+  
   onSelect(company :Company) : void {
       this.clickOnCompany.emit(company)
   }
+
+
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 

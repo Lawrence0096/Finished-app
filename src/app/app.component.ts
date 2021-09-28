@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
  
     //klik na stranko sproži novi prikaz
     public CompanySelected(data :any){
-      console.log('companySelected')
+      console.log('companySelected', data)
       this.namefetchService.setSelectedCompany(data)
     }
 
