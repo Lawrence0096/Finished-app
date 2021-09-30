@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainContentComponent } from './_components/main-content/main-content.component';
+import { MainEventTableComponent } from './_modules/tableModule/mainEventTable.component/mainEventTable.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'home', component: MainContentComponent},
+  {path: 'home', component: MainEventTableComponent},
   //{path: 'customer/:id', component: CustomViewComponent }
-  {path: 'customer', loadChildren: ()=> import
-  ('./_components/custom-view/custom-view.module').then(m => m.CustomViewModule)},
+  {path: 'stranka/:id', loadChildren: ()=> import
+  ('./_modules/companyViewModule/companyView.module').then(m => m.CompanyViewModule)},
 
 ];
 

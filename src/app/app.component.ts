@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MockIn } from 'src/app/_interfaces/Mock-in';
-import { MainTableService } from 'src/app/_services/main-table.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { NamefetchService } from './_services/namefetch.service';
-import { CompanyDisplayService } from './_services/company-display.service';
+import { ClickedCompanyDataService } from './_services/clicked-company-data.service';
+import { CompanyListDataService } from './_services/companies-list-data.service';
 
 
 @Component({
@@ -12,31 +10,37 @@ import { CompanyDisplayService } from './_services/company-display.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title = 'navteh-app';
-  _companiesList: any [] = [];
+
+  //Data for Navigation list
+  _companiesList: any[] = [];
+  _navBarHeader = "stranke";
+  _navBarHeaderImg = "../../../assets/logo.jpg";
 
   constructor(
-    private namefetchService:NamefetchService,
-    private companyDisplayService : CompanyDisplayService 
-    ) {}
- 
-    //klik na stranko sproži novi prikaz
-    public CompanySelected(data :any){
-      console.log('companySelected', data)
-      this.namefetchService.setSelectedCompany(data)
-    }
+    private clickedCompanyService: ClickedCompanyDataService,
+    private companyDisplayService: CompanyListDataService
+  ) { }
 
-    getCompanies(): void{
-      this.companyDisplayService.getCompanies()
-      .subscribe(res => { 
+
+  ngOnInit(): void {
+    this.getCompanies()
+  }
+
+  //klik na company (stranko) poreduje podatke clicked-company-data servisu 
+  public CompanySelected(data: any) {
+    console.log('companySelected', data)
+    this.clickedCompanyService.setSelectedCompany(data)
+  }
+
+  //pridobimo ID in imena podjetij iz backenda, za prikaz v navigacijskem meniju
+  getCompanies(): void {
+    this.companyDisplayService.getCompanies()
+      .subscribe(res => {
         this._companiesList.push(...res)
       })
-    }
+  }
 
-
-
- ngOnInit(): void {
-  this.getCompanies() 
- }
 }
 

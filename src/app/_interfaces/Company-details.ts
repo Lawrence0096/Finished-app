@@ -5,9 +5,7 @@ export interface CompanyDetails {
         tracknav: Tracknav;
         note:     string;
     }
-    
-
-    
+       
     export interface Mysql {
         version:        string;
         last_start:     Date;

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {AppRoutingModule } from './app-routing.module';
 import {AppComponent } from './app.component';
-import {CompaniesComponent } from './_components/companies/companies.component';
+import { NavigationListComponent } from './_components/companiesList/navigationList.component';
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -20,17 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTabsModule} from '@angular/material/tabs';
-import { NgxChartsModule }from '@swimlane/ngx-charts';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { MainContentModule } from './_components/main-content/main-content.module';
-
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    CompaniesComponent,
+    NavigationListComponent
   ],
 
   imports: [
@@ -52,11 +47,9 @@ import { MainContentModule } from './_components/main-content/main-content.modul
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatTabsModule,
-    NgxChartsModule,
     MatFormFieldModule,
     MatExpansionModule,
-  ],
-  
+  ],  
   providers: [],
   bootstrap: [AppComponent]
 })
