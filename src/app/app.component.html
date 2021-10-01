@@ -2,12 +2,9 @@
       <div class="mat-con">
             <mat-drawer-container>
                   <mat-drawer mode="side" opened class="whatever">
-                        <app-navigation-List 
-                              (onSelectListItem)='CompanySelected($event)' 
-                              [listItems]='_companiesList'
+                        <app-navigation-List                                                          
                               [navBarHeader] = '_navBarHeader'
-                              [navBarHeaderImg] = '_navBarHeaderImg'
-                              >
+                              [navBarHeaderImg] = '_navBarHeaderImg'>
                         </app-navigation-List>
                   </mat-drawer>
                   <mat-drawer-content>                        

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { MockData } from '../_interfaces/mock-data';
 
+import { MockData } from '../_interfaces/mock-data';
 
 @Injectable({
   providedIn: 'root'

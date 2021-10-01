@@ -55,8 +55,6 @@
             <div class="box_container">
               <div id="contentContainer">
                 <h2 id="ContainerHeaders">SYSTEM INFORMATION</h2>
-
-
                 <mat-card class="matcard-padding2">
                   <div id='ContainerPara'>
                     <!-- <h3 id="SectionHeaders">CPU:</h3>  <br>
@@ -159,7 +157,9 @@
                       async)?.companyDetails?.system?.ram?.installed!).toString() | slice:0:2 }} GB</b>
                     <section class="example-section" style="width: 95%; margin-top: 5px;">
                       <mat-progress-bar class="green-progress" [mode]="mode"
-                        value="{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free! *100 /  ((_selectedCompany$ | async)?.companyDetails?.system?.ram?.free! + (_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed!) }}"
+                        value="{{(_selectedCompany$ | async)?.companyDetails?.system?.ram?.free! *100 /  
+                        ((_selectedCompany$ | async)?.companyDetails?.system?.ram?.free! + 
+                        (_selectedCompany$ | async)?.companyDetails?.system?.ram?.installed!) }}"
                         [bufferValue]="bufferValue">
                       </mat-progress-bar>
                       <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
@@ -243,7 +243,6 @@
                       </mat-card>
                     </div>
                   </div>
-
                 </div>
                 <br>
                 <br>
@@ -320,7 +319,8 @@
                         Online:<b> {{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online}} </b> <br>
                         <section class="example-section" style="width: 95%; margin-top: 5px;">
                           <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 / (_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.count!}}"
+                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 / 
+                            (_selectedCompany$ | async)?.companyDetails?.tracknav?.tablets?.count!}}"
                             [bufferValue]="bufferValue">
                           </mat-progress-bar>
                           <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
@@ -354,7 +354,8 @@
                         <br>
                         <section class="example-section" style="width: 95%; margin-top: 5px;">
                           <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 / (_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
+                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 / 
+                              (_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
                             [bufferValue]="bufferValue">
                           </mat-progress-bar>
                           <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
@@ -366,7 +367,8 @@
 
                         <section class="example-section" style="width: 95%; margin-top: 5px;">
                           <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 / (_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
+                            value="{{(_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 / 
+                              (_selectedCompany$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
                             [bufferValue]="bufferValue">
                           </mat-progress-bar>
                           <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">

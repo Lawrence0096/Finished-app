@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MockData } from '../_interfaces/mock-data';
-import { TableService } from '../_services/table.service';
+import { MockData } from '../../_interfaces/mock-data';
+import { TableService } from '../../_services/table.service';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import {MatAccordion} from '@angular/material/expansion';
-import { TableService } from '../tableModule/_services/table.service';
+import { TableService } from '../../_services/table.service'
 
 @Component({
   selector: 'app-company-view',
@@ -62,7 +62,6 @@ export class CompanyViewComponent implements OnInit {
             .subscribe(data => {
               res.companyDetails = data;              
               this.isLoading = false;
-
               //funkcija, ki preveri če so podatki v data.note prazni
               if (data.note.length > 0) {
                 //če podatki niso prazni potem se Note divizija prikaže

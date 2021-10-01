@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { MockData } from '../_interfaces/mock-data';
+import { MockData } from 'src/app/_interfaces/mock-data';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -38,10 +38,10 @@ export class TableComponent implements OnInit {
     this.setupTable()
   }
 
-  //Klik na tabelo metoda
-  public getRecord(element: any): void {
+  //Klik na tabelo metoda ***!
+  public getRecord(element: any): void { //ontablerowclick
     //console.log(element)
-    this.listenToTableClick.emit(element)
+    this.listenToTableClick.emit(element) //ontablerowclickevent
   }
 
   //metoda, ki poskrbi da se sort in paginator loadata, če ni dataSource prazen
