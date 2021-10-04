@@ -3,14 +3,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Company } from '../../_interfaces/Company';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompanyListDataService } from '../../_services/companies-list-data.service';
-import { ClickedCompanyDataService } from 'src/app/_services/clicked-company-data.service';
+import { CompanyListDataService } from '../../_services/sideNav-data.service';
+import { SelectedCompanyDataService } from 'src/app/_services/selected-company-data.service';
 
 
 @Component({
   selector: 'app-navigation-List',
-  templateUrl: './navigationList.component.html',
-  styleUrls: ['./navigationList.component.css']
+  templateUrl: './sideNav.component.html',
+  styleUrls: ['./sideNav.component.css']
 })
 
 export class NavigationListComponent implements OnInit {
@@ -28,7 +28,7 @@ export class NavigationListComponent implements OnInit {
 
   constructor(private router: Router,
     private companyDisplayService: CompanyListDataService,
-    private clickedCompanyService: ClickedCompanyDataService
+    private clickedCompanyService: SelectedCompanyDataService
   ) { }
 
   ngOnInit(): void {

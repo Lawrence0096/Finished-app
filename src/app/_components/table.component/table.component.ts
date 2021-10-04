@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.setupTable()
   }
 
   ngOnChanges() {

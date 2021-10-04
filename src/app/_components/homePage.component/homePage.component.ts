@@ -5,14 +5,14 @@ import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-main-event-table',
-  templateUrl: './mainEventTable.component.html',
-  styleUrls: ['./mainEventTable.component.css']
+  templateUrl: './homePage.component.html',
+  styleUrls: ['./homePage.component.css']
 })
-export class MainEventTableComponent implements OnInit {
+export class HomePageComponent implements OnInit {
 
   //spremenljivke za prikaz paginatorja in filtra
-  switchTrue = true;
-  switchFalse = false;
+  isLoadingTableFeatures = false;
+  isLoading = true;
 
   //Podatki za table
   dataHomeTable!: MatTableDataSource<MockData>
@@ -25,6 +25,8 @@ export class MainEventTableComponent implements OnInit {
       .subscribe((res) => {
         this.dataHomeTable = new MatTableDataSource<MockData>(res);
         console.log(this.dataHomeTable);
+        this.isLoading = false
+        this.isLoadingTableFeatures = true
       })
     this.getDynamicIndex()
   }

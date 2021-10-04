@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CompanyListDataService } from './companies-list-data.service';
+import { CompanyListDataService } from './sideNav-data.service';
 
 describe('CompanyDisplayService', () => {
   let service: CompanyListDataService;

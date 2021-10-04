@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import { Company } from '../_interfaces/Company';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClickedCompanyDataService {
+export class SelectedCompanyDataService {
 
 
 //SERVICE OMOGOČA, POSREDOVANJE PARAMETROV PRIDOBLJENIH OD UPORABNIKA, KO KLIKNE NA POSAMEZNO STRANKO
-
   // @ts-ignore
   public selectedCompany$ = new BehaviorSubject<Company?>(null)
   constructor() {}

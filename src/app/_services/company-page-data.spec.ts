@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CustomViewService } from './company-data.service';
+import { CompanyPageService } from './company-page-data.service';
 
 describe('CustomViewService', () => {
-  let service: CustomViewService;
+  let service: CompanyPageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CustomViewService);
+    service = TestBed.inject(CompanyPageService);
   });
 
   it('should be created', () => {

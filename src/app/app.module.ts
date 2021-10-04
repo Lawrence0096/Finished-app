@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {AppRoutingModule } from './app-routing.module';
 import {AppComponent } from './app.component';
 
-import { NavigationListComponent } from './_components/navigationList.component/navigationList.component';
+import { NavigationListComponent } from './_components/sideNav.component/sideNav.component';
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -22,18 +22,18 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { CompanyViewComponent } from './_components/companyView.component/companyView.component';
+import { CompanyPageComponent } from './_components/companyPage.component/companyPage.component';
 import { TableComponent } from './_components/table.component/table.component';
-import { MainEventTableComponent } from './_components/mainEventTable.component/mainEventTable.component';
-import { ListComponent } from './_components/list/list.component';
+import { HomePageComponent } from './_components/homePage.component/homePage.component';
+import { ListComponent } from './_components/list.component/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationListComponent,
-    CompanyViewComponent,
+    CompanyPageComponent,
     TableComponent,
-    MainEventTableComponent,
+    HomePageComponent,
     ListComponent
   ],
 

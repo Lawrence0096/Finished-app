@@ -8,7 +8,7 @@ import { delay } from 'rxjs/internal/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomViewService {
+export class CompanyPageService {
 
 
   constructor(private http: HttpClient) { }

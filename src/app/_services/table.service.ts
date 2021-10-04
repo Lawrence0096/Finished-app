@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { delay } from 'rxjs/internal/operators';
 
 
 import { MockData } from '../_interfaces/mock-data';
@@ -22,17 +23,12 @@ export class TableService  {
 
   //Event Data za glavno tabelo na home-pagu
   getEventData(): Observable<MockData[]>{
-    return this.http.get<MockData[]>(this.tableInfoUrlSpecific) 
+    return this.http.get<MockData[]>(this.tableInfoUrlSpecific).pipe(delay(1000)) 
   }
   //Event Data za specifično podjetje
   getCompanyEventData(): Observable<MockData[]>{
-    return this.http.get<MockData[]>(this.tableInfoUrlSpecific2) 
+    return this.http.get<MockData[]>(this.tableInfoUrlSpecific2).pipe(delay(1000)) 
   }
-
-
-  
-
-
 }
 
 

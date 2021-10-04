@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyViewComponent } from './_components/companyView.component/companyView.component';
-import { MainEventTableComponent } from './_components/mainEventTable.component/mainEventTable.component';
+import { CompanyPageComponent } from './_components/companyPage.component/companyPage.component';
+import { HomePageComponent } from './_components/homePage.component/homePage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: 'home', component: MainEventTableComponent},
-  {path: 'stranka/:id', component: CompanyViewComponent }
+  {path: 'home', component: HomePageComponent},
+  {path: 'stranka/:id', component: CompanyPageComponent }
 ];
 
 @NgModule({

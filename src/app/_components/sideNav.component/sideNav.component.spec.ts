@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavigationListComponent } from './navigationList.component';
+import { NavigationListComponent } from './sideNav.component';
 
 describe('CompaniesComponent', () => {
   let component: NavigationListComponent;

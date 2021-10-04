@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainEventTableComponent } from './mainEventTable.component';
+import { CompanyPageComponent } from './companyPage.component';
 
-describe('MainContentComponent', () => {
-  let component: MainEventTableComponent;
-  let fixture: ComponentFixture<MainEventTableComponent>;
+describe('CustomViewComponent', () => {
+  let component: CompanyPageComponent;
+  let fixture: ComponentFixture<CompanyPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainEventTableComponent ]
+      declarations: [ CompanyPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainEventTableComponent);
+    fixture = TestBed.createComponent(CompanyPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

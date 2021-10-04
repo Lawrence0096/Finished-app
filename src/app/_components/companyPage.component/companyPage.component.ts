@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Input, Output, EventEmitter } from '@angular/core';
-import { CustomViewService } from '../../_services/company-data.service';
-import { ClickedCompanyDataService } from '../../_services/clicked-company-data.service'
+import { CompanyPageService } from '../../_services/company-page-data.service';
+import { SelectedCompanyDataService } from '../../_services/selected-company-data.service'
 import { Company } from '../../_interfaces/Company';
 import {MockIn} from '../../_interfaces/Mock-in'
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,18 +13,18 @@ import { TableService } from '../../_services/table.service'
 
 @Component({
   selector: 'app-company-view',
-  templateUrl: './companyView.component.html',
-  styleUrls: ['./companyView.component.css']
+  templateUrl: './companyPage.component.html',
+  styleUrls: ['./companyPage.component.css']
 })
-export class CompanyViewComponent implements OnInit {
+export class CompanyPageComponent implements OnInit {
 
   @ViewChild(MatAccordion) accordion?: MatAccordion;
 
   //isOpened predstavlja posamezni expandable zavihek
-  isOpened1?: boolean
-  isOpened2?: boolean
-  isOpened3?: boolean
-  isOpened4?: boolean
+  isOpened1: boolean = false
+  isOpened2: boolean = false
+  isOpened3: boolean = false
+  isOpened4: boolean = false
 
   @Input() item = '';
 
@@ -45,14 +45,15 @@ export class CompanyViewComponent implements OnInit {
   showNoteDiv: boolean = true
 
   isLoading: boolean = true;
+  isLoading2: boolean = true;
 
   dataCompanyTable!:MatTableDataSource<MockIn>
   dataCompanyColums: string[] = [];
 
   constructor(
     private tableService: TableService,
-    private customViewService: CustomViewService,
-    private clickedCompanyDataService: ClickedCompanyDataService) { }
+    private customViewService: CompanyPageService,
+    private clickedCompanyDataService: SelectedCompanyDataService) { }
 
   ngOnInit(): void {
     this._selectedCompany$
@@ -80,6 +81,7 @@ export class CompanyViewComponent implements OnInit {
         this.dataCompanyTable = new MatTableDataSource<MockIn>(res);
       })
     this.getDynamicIndex()
+    
   }
  //dinamični stolpci
   getDynamicIndex() {
@@ -88,22 +90,36 @@ export class CompanyViewComponent implements OnInit {
       //filteredData = Array of data that should be rendered by the table, where each object represents one row.
       this.dataCompanyTable.filteredData = res;      
       this.dataCompanyColums = Object.getOwnPropertyNames(this.dataCompanyTable.filteredData[0]);
+      this.isLoading2 = false;
       //this.setupTable()
      })
   }
   //expandable tabs prvi, drugi, tretji, četrti
   stayOpened(){
-    this.isOpened1 = true
+      this.isOpened1 = true
   }
   stayOpened2(){
     this.isOpened2 = true
+    if (this.isOpened2 = true) {
+      this.isOpened2 = false
+    } 
   }
   stayOpened3(){
     this.isOpened3 = true
+    if (this.isOpened3 = true) {
+      this.isOpened3 = false
+    } 
+    console.log(this.isOpened3)
   }
   stayOpened4(){
     this.isOpened4 = true
+    
   }
+
+  closeOpened4(x : any){
+    
+  }
+
   //odpri vse razšiljive zavihke
   openAll(){
     this.isOpened1 = true
@@ -117,6 +133,7 @@ export class CompanyViewComponent implements OnInit {
     this.isOpened2 = false
     this.isOpened3 = false
     this.isOpened4 = false
+
   }
 }
 

@@ -6,7 +6,7 @@
       </ng-container>
       <ng-container *ngIf="!isLoading">
 
-        <h1 style="font-family: 'Roboto', sans-serif; font-weight: 700;">STRANKA: {{(_selectedCompany$ | async)?.name}}
+        <h1 style="font-family: 'Roboto', sans-serif;">STRANKA: <b>{{(_selectedCompany$ | async)?.name}}</b>
         </h1>
         <ng-container *ngIf="showNoteDiv">
           <div class="box_container">
@@ -388,7 +388,7 @@
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened4" (click)=stayOpened4()>
+          <mat-expansion-panel [expanded]="isOpened4" (click)=stayOpened4() (click) =closeOpened4(stayOpened4) >
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Iframe
@@ -407,10 +407,22 @@
       </ng-container>
     </mat-card-content>
   </mat-card>
-  <div class="example-card2">
-    <h1 style="margin-top: 15px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje</h1>
+  <div class="example-card2" style="width: 40%;">
+  
+    <ng-container *ngIf="isLoading2">
+      <mat-progress-bar mode="indeterminate" style="height: 5px!important; margin-top: 16.5px;"></mat-progress-bar>
+    </ng-container>
+    
 
-    <app-table [displayFilter]='switchFalse' [displayPaginator]='switchFalse' [displayedColumns]='dataCompanyColums'
-      [dataSource]='dataCompanyTable'></app-table>
+    <ng-container *ngIf="!isLoading2">
+      <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
+      <app-table 
+        [displayFilter]='switchFalse' 
+        [displayPaginator]='switchFalse' 
+        [displayedColumns]='dataCompanyColums'
+        [dataSource]='dataCompanyTable'>
+      </app-table>
+    </ng-container>
+   
   </div>
 </div>
