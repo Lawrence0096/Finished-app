@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Company } from 'src/app/_interfaces/Company';
+import { Customer } from 'src/app/_interfaces/customer';
 import { Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private router : Router) { }
+  constructor() { }
 
   @Input() listItems: any[] = [];
   @Output() onSelectListItem: EventEmitter<any> = new EventEmitter();
@@ -18,7 +17,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
   //klik na posamezno podjetje
-  onClick(item: Company): void 
+  onClick(item: Customer): void 
   {
     this.onSelectListItem.emit(item)
   }

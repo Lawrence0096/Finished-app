@@ -1,9 +1,19 @@
-export interface CompanyDetails {
+export interface CustomerDetails {
 
         system:   System;
         mysql:    Mysql;
         tracknav: Tracknav;
-        note:     string;
+        note:     Note;
+    }
+
+    export interface customer{
+        id: number;
+        name: string;
+    }
+
+    export interface Note {
+        data:      string;
+        bgndcolor: string;
     }
        
     export interface Mysql {
@@ -31,6 +41,7 @@ export interface CompanyDetails {
         volume:    string;
         installed: number;
         free:      number;
+        bgndcolor: string;
     }
     
     export interface RAM {
@@ -78,6 +89,7 @@ export interface CompanyDetails {
     export interface Programs {
         active:  number;
         running: number;
+        txtcolor: string;
     }
     
     export interface Service {
@@ -93,6 +105,7 @@ export interface CompanyDetails {
     }
     
     export interface Tachodl {
+        program:  Program;
         vehicles: Drivers;
         drivers:  Drivers;
     }
@@ -107,3 +120,8 @@ export interface CompanyDetails {
         online: number;
     }
 
+    export interface Program {
+        version:   string;
+        cards:     string;
+        bgndcolor: string;
+    }

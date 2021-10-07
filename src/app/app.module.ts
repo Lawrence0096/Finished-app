@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import {AppRoutingModule } from './app-routing.module';
 import {AppComponent } from './app.component';
 
-import { NavigationListComponent } from './_components/sideNav.component/sideNav.component';
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -22,18 +20,18 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { CompanyPageComponent } from './_components/companyPage.component/companyPage.component';
+import { CustomerDetailComponent } from './customer-detail.component/customer-detail..component';
 import { TableComponent } from './_components/table.component/table.component';
-import { HomePageComponent } from './_components/homePage.component/homePage.component';
+import { DashboardComponent} from './dashboard.component/dashboard.component';
 import { ListComponent } from './_components/list.component/list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationListComponent,
-    CompanyPageComponent,
+    CustomerDetailComponent,
     TableComponent,
-    HomePageComponent,
+    DashboardComponent,
     ListComponent
   ],
 

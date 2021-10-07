@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { MockData } from 'src/app/_interfaces/mock-data';
+import { Mock } from 'src/app/_interfaces/mock';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,7 +21,7 @@ export class TableComponent implements OnInit {
   @Output() listenToTableClick: EventEmitter<any> = new EventEmitter();
 
   @Input() displayedColumns: string[] = [];
-  @Input() dataSource!: MatTableDataSource<MockData>
+  @Input() dataSource!: MatTableDataSource<Mock>
   @Input() displayFilter?: boolean;
   @Input() displayPaginator?: boolean;
 
