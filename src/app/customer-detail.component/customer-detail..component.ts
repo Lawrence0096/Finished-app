@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectedCompanyDataService } from '../_services/selected-customer-data.service'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
 import { Customer } from '../_interfaces/customer';
 import { Mock } from 'src/app/_interfaces/mock';
 import { MatTableDataSource } from '@angular/material/table';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import {MatAccordion} from '@angular/material/expansion';
-import { CustomerAPIService } from 'src/app/_services/customer-api.service'; //private customerAPIservice: CustomerAPIService
 import { CustomerDetailService } from 'src/app/_services/customer-detail.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/internal/operators';
 
 
 @Component({
@@ -15,9 +16,11 @@ import { CustomerDetailService } from 'src/app/_services/customer-detail.service
   templateUrl: './customer-detail..component.html',
   styleUrls: ['./customer-detail.component.css']
 })
-export class CustomerDetailComponent implements OnInit {
+export class CustomerDetailComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatAccordion) accordion?: MatAccordion;
+  private ngUnsubscribe = new Subject();
+
 
   //isOpened presents status for each expandable pannel for each expandable pannel 
   isOpened1: boolean = false;
@@ -36,11 +39,13 @@ export class CustomerDetailComponent implements OnInit {
   bufferValue = 75; 
 
   //Property gets ID and Name of a clicked customer when subscribed
-  public _selectedCustomer$ = this.clickedCompanyDataService.selectedCompany$.asObservable();
-  public _IsLoadingCompanyEventData$ = this.customerTableDataService.IsloadingCompanyEventData.asObservable();
+  public _selectedCustomer$ = this.customerDetailService.selectedCompany$.asObservable();
+  public _IsLoadingCompanyEventData$ = this.customerDetailService.IsloadingCompanyEventData.asObservable();
+  public _isLoadingCustomerDetailsData$ = this.customerDetailService.IsloadingCustomerDetailsData.asObservable();
+
 
   //Loading status properties 
-  showNoteMessage: boolean = true
+  showNoteMessage: boolean = true;
   isLoading: boolean = true;
   
   //Table data propety 
@@ -50,24 +55,27 @@ export class CustomerDetailComponent implements OnInit {
   test: any [] = []
 
   constructor(
-    private clickedCompanyDataService: SelectedCompanyDataService,
-    private customerAPIservice: CustomerAPIService,
-    private customerTableDataService : CustomerDetailService
+    private customerDetailService : CustomerDetailService
     ) { }
 
-  ngOnInit(): void {
-    
 
-    this._selectedCustomer$
-      .subscribe((res: Customer | null) => {
-        console.log("hello")
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  ngOnInit(): void {
+      this._IsLoadingCompanyEventData$.subscribe(data => console.log(data))
+        this._selectedCustomer$
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: Customer | null) => {
         if (res !== null) {
-          this.isLoading = true;
-          this._IsLoadingCompanyEventData$.subscribe(res => console.log(res))
-          this.customerAPIservice.getCustomerId(res.id)
+          this.getTableData();
+          this.getDynamicIndex();        
+          this.customerDetailService.getCustomerId(res.id)
             .subscribe(data => {
+              //console.log(data)
               res.companyDetails = data;
-              this.isLoading = false;
               //funkcija, ki preveri če so podatki v data.note prazni
               /*if (data.note.data.length > 0) {
                 //če podatki niso prazni potem se Note divizija prikaže
@@ -81,23 +89,18 @@ export class CustomerDetailComponent implements OnInit {
         }
       })
     //end
-    //Methods that get Table data and table index
-    this.getTableData();
-    this.getDynamicIndex();
-
+    //Methods that get Table data and table index   
   }
 
-  getTableData(){
-    this.customerTableDataService.getCustomerTableData()
+   getTableData(){
+    this.customerDetailService.getCustomerTableData()
     .subscribe((res) => {
-      this.customerDetailTableData = new MatTableDataSource<Mock>(res); 
-      
-
+      this.customerDetailTableData = new MatTableDataSource<Mock>(res);       
     })
   }
  //Dynamic 
   getDynamicIndex() {
-    this.customerAPIservice.getCustomerEventData()
+    this.customerDetailService.getCustomerTableData()
     .subscribe((res) =>{
       //filteredData = Array of data that should be rendered by the table, where each object represents one row.
         this.customerDetailTableData.filteredData = res;      
@@ -107,36 +110,35 @@ export class CustomerDetailComponent implements OnInit {
 
   //When user clicks on expandable pannel isOpened turn true, when closes it turns false
   //Each method is called (1-4), when a single expandable pannel is clicked 
-  clickExpansionStatus1(){
-    if (this.isOpened1 === false){
-      this.isOpened1 = true;      
+  expansionStatus1() {
+    if (this.isOpened1 = false) {
+      this.isOpened1 = true;
     }
-    else if (this.isOpened1 === true)
-    this.isOpened1 = false    
+    else if (this.isOpened1 = true)
+      this.isOpened1 = false
   }
-
-  clickExpansionStatus2(){
-    if (this.isOpened2 === false){
-      this.isOpened2 = true;      
+  expansionStatus2() {
+    if (this.isOpened2 === false) {
+      this.isOpened2 = true;
     }
     else if (this.isOpened2 === true)
-    this.isOpened2 = false    
+      this.isOpened2 = false
   }
 
-  clickExpansionStatus3(){
-    if (this.isOpened3 === false){
-      this.isOpened3 = true;      
+  expansionStatus3() {
+    if (this.isOpened3 === false) {
+      this.isOpened3 = true;
     }
     else if (this.isOpened3 === true)
-    this.isOpened3 = false    
+      this.isOpened3 = false
   }
 
-  clickExpansionStatus4(){
-    if (this.isOpened4 === false){
-      this.isOpened4 = true;      
+  expansionStatus4() {
+    if (this.isOpened4 === false) {
+      this.isOpened4 = true;
     }
     else if (this.isOpened4 === true)
-    this.isOpened4 = false    
+      this.isOpened4 = false
   }
   //Opens all expandable pannels
   openAll(){

@@ -1,3 +1,5 @@
+//NOT IN USE
+
 export interface Pokedex {
     customer: Customer;
     system:   System;

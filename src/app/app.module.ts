@@ -25,7 +25,6 @@ import { TableComponent } from './_components/table.component/table.component';
 import { DashboardComponent} from './dashboard.component/dashboard.component';
 import { ListComponent } from './_components/list.component/list.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

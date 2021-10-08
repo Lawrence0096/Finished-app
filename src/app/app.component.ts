@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SelectedCompanyDataService } from './_services/selected-customer-data.service';
 import { CustomerAPIService } from 'src/app/_services/customer-api.service';
+import { CustomerDetailService } from './_services/customer-detail.service';
 
 
 @Component({
@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
   /* _navBarHeader = "stranke";
   _navBarHeaderImg = "../../../assets/logo.jpg"; */
 
-  constructor(private router: Router,    
-    private clickedCompanyService: SelectedCompanyDataService,
+  constructor(private router: Router,        
+    private customerDetailService:CustomerDetailService,
     private customerAPIservice: CustomerAPIService
   ) {}
 
@@ -34,11 +34,10 @@ export class AppComponent implements OnInit {
         this.customerList.push(...res)
       })
   }
-
   //sends clicked data to clickedCompany Service 
   public customerSelected(data: any) {
-    console.log('companySelected', data)
-    this.clickedCompanyService.setSelectedCompany(data)
+    //console.log('companySelected', data)
+    this.customerDetailService.setSelectedCompany(data)
     //navigation
     this.item = data
     this.router.navigate(['/stranka', this.item.name])

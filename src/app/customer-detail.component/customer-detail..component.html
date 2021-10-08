@@ -1,10 +1,10 @@
 <div class="splitView">
   <mat-card class="example-card1">
     <mat-card-content [style.overflow]="'auto'" [style.height]="'93vh'">
-      <ng-container *ngIf="isLoading">
+      <ng-container *ngIf="_isLoadingCustomerDetailsData$ | async">
         <mat-progress-bar mode="indeterminate" style="height: 5px!important;"></mat-progress-bar>
       </ng-container>
-      <ng-container *ngIf="!isLoading">
+      <ng-container *ngIf="!(_isLoadingCustomerDetailsData$ | async )">
         <h1 style="font-family: 'Roboto', sans-serif;">STRANKA: <b>{{(_selectedCustomer$ | async)?.name}}</b>
         </h1>
         <ng-container *ngIf="showNoteMessage">
@@ -13,9 +13,7 @@
               <h2 id="Container_headers">Note</h2>
               <p id='Container_paragraph'>
                 {{(_selectedCustomer$ | async)?.companyDetails?.note?.data}}
-              </p>
-                <!--{{(_selectedCustomer$ | async)?.companyDetails?.note?.bgndcolor}} -->
-                <!--ng-style="{'background-color': _selectedCustomer$ | async)?.companyDetails?.note?.bgndcolor " -->
+              </p>                
             </div>
           </div>
         </ng-container>
@@ -25,7 +23,7 @@
           <button mat-button (click)="closeAll()">Collapse All</button>
         </div>
         <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened1" (click)=clickExpansionStatus1()>
+          <mat-expansion-panel [expanded]="isOpened1" (click)=expansionStatus1()>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 SQL
@@ -47,7 +45,7 @@
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened2" (click)=clickExpansionStatus2()>
+          <mat-expansion-panel [expanded]="isOpened2" (click)=expansionStatus2()>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 System
@@ -57,24 +55,11 @@
               <div id="Content_container">
                 <h2 id="Container_headers">SYSTEM INFORMATION</h2>
                 <mat-card class="matcard-padding2">
-                  <div id='Container_paragraph'>
-                    <!-- <h3 id="SectionHeaders">CPU:</h3>  <br>
-                               <p id="subPara" style="margin-top: -30px;">
-                                 Count: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}}</b>  <br>
-                                 Usage: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}}</b>  <br>
-                               </p>  -->
-
+                  <div id='Container_paragraph'>                  
                     <h3 id="SectionHeaders">CPU:</h3>
                     <section class="example-section" style="width: 95%;">
                       Count: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}} </b> <br>
                       Usage: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}} </b> %
-                      <!--<mat-progress-bar
-                               class="green-progress"
-                               [mode]="mode"
-                               value="{{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}}"
-                               [bufferValue]="bufferValue">
-                           </mat-progress-bar> 
-                                 <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" > Count: {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}}  </div> -->
                     </section>
                     <section class="example-section" style="width: 95%; margin-top: 5px">
                       <mat-progress-bar class="green-progress" [mode]="mode"
@@ -85,14 +70,7 @@
                         {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}} % </div>
                     </section>
                   </div>
-                </mat-card>
-                <!-- <div id='Container_paragraph'> <br>
-                              <div *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives" ><br>
-                                {{item.volume.toString()| slice:0:3}} <br>
-                                {{item.installed.toString()| slice:0:3}} <br>
-                                {{item.free.toString()| slice:0:3}} <br>
-                              </div>
-                        </div>-->
+                </mat-card>              
                 <div id='Container_paragraph'> <br>
                   <mat-card class="matcard-padding2">
                     <div class="cont">
@@ -108,10 +86,8 @@
                               <br>
                               Free space: <b> {{item.free.toString()| number:'1.0-0'}} MB </b>
                               <br>
-                              Total: <b> {{(item.installed + item.free).toString()| number:'1.0-0'}} MB </b>                            
-                                                       
-                          </mat-card>
-                          
+                              Total: <b> {{(item.installed + item.free).toString()| number:'1.0-0'}} MB </b>                                                       
+                          </mat-card>                         
                         </ng-container>
                       </div>
                       <ng-container *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives">
@@ -127,25 +103,6 @@
                           </div>
                         </section>
                       </ng-container>
-                      <!--<section class="example-section" style="width: 95%; margin-top: 5px;">
-                                      <mat-progress-bar
-                                          class="green-progress"
-                                          [mode]="mode"
-                                          value="{{ item.free! *  100 / item.installed! }}"
-                                          [bufferValue]="bufferValue">
-                                      </mat-progress-bar>
-                                            <div style="position: relative; padding: 10px; color: white; margin-top: -29px;" >
-                                              Avalible: {{item.free! *  100 / item.installed!}} %
-                                          </div>
-                                    </section> ->                      
-                                  OLD spicy Tab switch
-                                  <mat-tab-group  mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
-                                    <mat-tab *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives" label= "{{item.volume.toString()| slice:0:3}} Disk">
-                                      <p style="margin-top: 10px; padding: 10px;"> Installed: <b>{{item.installed.toString()| slice:0:3}} GB</b> <br>
-                                        Free: <b>{{item.free.toString()| slice:0:3}} GB</b>  <br>
-                                      </p>  
-                                    </mat-tab>
-                                  </mat-tab-group>-->
                     </div>
                   </mat-card>
                 </div>
@@ -172,18 +129,6 @@
                         async)?.companyDetails?.system?.ram?.installed!)).toString() | slice: 0 : 2 }} %
                       </div>
                     </section>
-                    <!--<div style="display: flex; justify-content: center;">
-                              <div style="height: 350px; width: 500px; margin-top: -60px;">
-                                  <ngx-charts-pie-chart
-                                  [results]="GraphData"
-                                  [legend]="false"
-                                  [legendTitle]="'Vehicle Survey'"
-                                  [view]="[400,300]"
-                                  [labels]="false"
-                                  >
-                                </ngx-charts-pie-chart>
-                              </div>   
-                            </div> -->
                   </div>
                 </mat-card>
                 <div id='Container_paragraph' style="margin-top: 20px">
@@ -198,7 +143,7 @@
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened3" (click)=clickExpansionStatus3()>
+          <mat-expansion-panel [expanded]="isOpened3" (click)=expansionStatus3()>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 TrackNav
@@ -371,7 +316,6 @@
                             slice:0:2}} %
                           </div>
                         </section>
-
                         <section class="example-section" style="width: 95%; margin-top: 5px;">
                           <mat-progress-bar class="green-progress" [mode]="mode"
                             value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 / 
@@ -394,7 +338,7 @@
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened4" (click)=clickExpansionStatus4() >
+          <mat-expansion-panel [expanded]="isOpened4" (click)=expansionStatus4() >
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Iframe
@@ -420,10 +364,10 @@
     <ng-container *ngIf="!(_IsLoadingCompanyEventData$ | async)">
       <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
       <app-table 
-        [displayFilter]='switchFalse' 
-        [displayPaginator]='switchFalse' 
-        [displayedColumns]='dataCompanyColums'
-        [dataSource]='customerDetailTableData'>
+          [displayFilter]='switchFalse' 
+          [displayPaginator]='switchFalse' 
+          [displayedColumns]='dataCompanyColums'
+          [dataSource]='customerDetailTableData'>
       </app-table>
     </ng-container> 
   </div>
