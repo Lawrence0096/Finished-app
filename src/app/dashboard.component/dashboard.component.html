@@ -7,10 +7,24 @@
 </ng-container>   
 <ng-container *ngIf = "!(isLoadingEventTableData$ | async)"></ng-container>
 <app-table 
-                [displayFilter] = 'isLoadingTableFeatures' 
-                [displayPaginator] = 'isLoadingTableFeatures' 
-                (listenParentHandler)= 'tableRowClick($event)'
-                [dataSource] = 'dashboardTableData'
-                [displayedColumns] = 'dashboardTableColumsIndex'
+        [displayFilter] = 'isLoadingTableFeatures' 
+        [displayPaginator] = 'isLoadingTableFeatures' 
+        (listenParentHandler)= 'tableRowClick($event)'
+        [dataSource] = 'dashboardTableData'
+        [displayedColumns] = 'dashboardTableColumsIndex'
         >
 </app-table>
+
+<mat-slider
+  thumbLabel
+  (input)="onInputChange($event)"
+  [displayWith]="formatLabel"
+  tickInterval="5"
+  step="5"
+  min= "5"
+  max="30"
+  aria-label="units"></mat-slider>
+
+
+
+ 

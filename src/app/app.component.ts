@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSliderChange } from '@angular/material/slider';
 import { Router } from '@angular/router';
 import { CustomerAPIService } from 'src/app/_services/customer-api.service';
 import { CustomerDetailService } from './_services/customer-detail.service';
@@ -15,9 +16,6 @@ export class AppComponent implements OnInit {
   item: any;
   customerList: any[] = [];
 
-  //Data for Navigation list (not used)
-  /* _navBarHeader = "stranke";
-  _navBarHeaderImg = "../../../assets/logo.jpg"; */
 
   constructor(private router: Router,        
     private customerDetailService:CustomerDetailService,
@@ -27,6 +25,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getCustomer()
   }
+
+
   //fills navigation panel with customers from backend
   getCustomer(): void {
     this.customerAPIservice.getCustomers()
@@ -36,11 +36,11 @@ export class AppComponent implements OnInit {
   }
   //sends clicked data to clickedCompany Service 
   public customerSelected(data: any) {
-    //console.log('companySelected', data)
-    this.customerDetailService.setSelectedCompany(data)
-    //navigation
-    this.item = data
-    this.router.navigate(['/stranka', this.item.name])
+      //console.log('companySelected', data)
+      this.customerDetailService.setSelectedCompany(data)
+      //navigation
+      this.item = data
+      this.router.navigate(['/stranka', this.item.name])
   }
 }
 

@@ -358,10 +358,10 @@
     </mat-card-content>
   </mat-card>
   <div class="example-card2" style="width: 40%;">
-    <ng-container *ngIf="_IsLoadingCompanyEventData$ | async">
+    <ng-container *ngIf="_isLoadingCustomerEventData$ | async">
       <mat-progress-bar mode="indeterminate" style="height: 5px!important; margin-top: 16.5px;"></mat-progress-bar>
     </ng-container>
-    <ng-container *ngIf="!(_IsLoadingCompanyEventData$ | async)">
+    <ng-container *ngIf="!(_isLoadingCustomerEventData$ | async)">
       <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
       <app-table 
           [displayFilter]='switchFalse' 

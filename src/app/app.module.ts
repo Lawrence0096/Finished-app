@@ -24,6 +24,8 @@ import { CustomerDetailComponent } from './customer-detail.component/customer-de
 import { TableComponent } from './_components/table.component/table.component';
 import { DashboardComponent} from './dashboard.component/dashboard.component';
 import { ListComponent } from './_components/list.component/list.component';
+import { MatSliderModule} from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { ListComponent } from './_components/list.component/list.component';
     MatTabsModule,
     MatFormFieldModule,
     MatExpansionModule,
+    MatSliderModule,
+    FormsModule
   ],  
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Input } from '@angular/core';
+import { Events } from 'src/app/_interfaces/events';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class TableComponent implements OnInit {
   @Output() listenToTableClick: EventEmitter<any> = new EventEmitter();
 
   @Input() displayedColumns: string[] = [];
-  @Input() dataSource!: MatTableDataSource<Mock>
+  @Input() dataSource!: MatTableDataSource<Events>
   @Input() displayFilter?: boolean;
   @Input() displayPaginator?: boolean;
 
