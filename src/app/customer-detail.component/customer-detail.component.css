@@ -19,6 +19,7 @@
 .splitView{
     display: inline-flex;
     width: 100%;
+    height: 98vh;
 }
 
 .example-card2{

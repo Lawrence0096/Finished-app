@@ -22,18 +22,24 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CustomerDetailComponent } from './customer-detail.component/customer-detail..component';
 import { TableComponent } from './_components/table.component/table.component';
-import { DashboardComponent} from './dashboard.component/dashboard.component';
+import { EventsComponent} from './events.component/events.component';
 import { ListComponent } from './_components/list.component/list.component';
 import { MatSliderModule} from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerDetailComponent,
     TableComponent,
+    EventsComponent,
+    ListComponent,
+    LoginComponent,
     DashboardComponent,
-    ListComponent
+    RegisterComponent
   ],
 
   imports: [

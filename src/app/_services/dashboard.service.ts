@@ -9,7 +9,7 @@ import { Events } from '../_interfaces/events';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class EventsService {
 
   constructor( private customerAPIService :CustomerAPIService) { }
 
@@ -22,5 +22,8 @@ export class DashboardService {
     getDashboardEventTableData2(): Observable<Events[]> {
         this.IsloadingEventTableData.next(true);
         return this.customerAPIService.getEventData2().pipe(finalize(() => this.IsloadingEventTableData.next(false)));
+    }
+    getDashboardEventTableDataReload(): Observable<Events[]> {
+        return this.customerAPIService.getEventData2();
     }
 }

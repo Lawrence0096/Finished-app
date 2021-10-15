@@ -33,13 +33,20 @@ export class CustomerDetailService  {
   getCustomerId(customerID: number): Observable<CustomerDetails>{
       this.IsloadingCustomerDetailsData.next(true);
       return this.customerAPIService.getCustomerData(customerID).pipe(finalize(() => this.IsloadingCustomerDetailsData.next(false)))
-
   }
+
+
+
+
   //Event new data
   getCustomerEventId ( customerID : number): Observable<any> {
     this.IsLoadingCustomerEventData.next(true)
     return this.customerAPIService.getCustomerData2(customerID).pipe(finalize(() => this.IsLoadingCustomerEventData.next(false)))
   }
+  
+
+
+
 
   //iz app.component.ts pridobi podatkovne parametre (ID,NAME), katere stranimo v Behavior subject
   setSelectedCompany(company :any):any {

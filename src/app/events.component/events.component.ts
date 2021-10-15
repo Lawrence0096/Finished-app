@@ -2,7 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { Mock } from '../_interfaces/mock';
 
 import { MatTableDataSource } from '@angular/material/table';
-import { DashboardService } from '../_services/dashboard.service';
+import { EventsService } from '../_services/dashboard.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { map, repeatWhen, startWith, takeUntil } from 'rxjs/internal/operators';
 import { BehaviorSubject, interval, never, Observable, of, Subscription, timer } from 'rxjs';
@@ -11,11 +11,11 @@ import { MatSliderChange } from '@angular/material/slider';
 import { Events } from '../_interfaces/events';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-events',
+  templateUrl: './events.component.html',
+  styleUrls: ['./events.component.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class EventsComponent implements OnInit, OnDestroy {
 
   //spremenljivke za prikaz paginatorja in filtra
   isLoadingTableFeatures = false;  
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   dashboardTableData!: MatTableDataSource<Events>
   dashboardTableColumsIndex: string[] = [];
   
-  constructor(private dashboardService :DashboardService) { }
+  constructor(private dashboardService :EventsService) { }
 
 
   //test
@@ -44,11 +44,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getTableData(){
     this.dashboardService.getDashboardEventTableData2().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((res) => {
-        console.log(res)
         this.dashboardTableData = new MatTableDataSource<Events>(res);
         this.isLoadingTableFeatures = true
       })
   }
+
+  getTableDataReload(){
+      this.dashboardService.getDashboardEventTableDataReload().pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res) => {
+          this.dashboardTableData = new MatTableDataSource<Events>(res);
+        })
+
+
+  }
+
+
+
   //https://stackoverflow.com/questions/68082556/angular-mat-table-display-dynamic-data-from-key-value-json-in-each-row
 
   //Dinamični stolpci
@@ -102,8 +113,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
       this.observable$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
-        //console.log(data)
-        //console.log('api call')
+        console.log(data)
+        console.log('api call')
+        this.getTableDataReload();
       })
 
       // szbscribe to the slider change and set a new delay value
@@ -113,6 +125,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     
       this.getTableData();
       this.getDynamicIndex();  
+      
   }
   formatLabel(value: number) {
     return value;

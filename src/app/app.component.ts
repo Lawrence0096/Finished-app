@@ -17,30 +17,12 @@ export class AppComponent implements OnInit {
   customerList: any[] = [];
 
 
-  constructor(private router: Router,        
-    private customerDetailService:CustomerDetailService,
-    private customerAPIservice: CustomerAPIService
-  ) {}
+  constructor( ) {}
 
   ngOnInit(): void {
-    this.getCustomer()
+    
   }
 
 
-  //fills navigation panel with customers from backend
-  getCustomer(): void {
-    this.customerAPIservice.getCustomers()
-      .subscribe(res => {
-        this.customerList.push(...res)
-      })
-  }
-  //sends clicked data to clickedCompany Service 
-  public customerSelected(data: any) {
-      //console.log('companySelected', data)
-      this.customerDetailService.setSelectedCompany(data)
-      //navigation
-      this.item = data
-      this.router.navigate(['/stranka', this.item.name])
-  }
 }
 
