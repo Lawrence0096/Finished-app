@@ -19,7 +19,9 @@
                       formControlName="password">
           </mat-form-field>
       </p>
+      <div *ngIf= "invalidLogin && formControls.password.dirty && formControls.email.dirty" style="color: red" >Wrong username or pass</div>
       <div *ngIf="isSubmitted && formControls.password.errors">
+        
         <div *ngIf="formControls.password.errors?.required">Password is required</div>
         <div *ngIf="formControls.password.errors?.minlength">Password must be at least 6 characters</div>
       </div>

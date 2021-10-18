@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   
   item: any;
   customerList: any[] = [];
+  isLoadingUserBar = true;
 
   constructor(private router: Router,        
     private customerDetailService:CustomerDetailService,
@@ -20,7 +21,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getCustomer()
   }
-
 
   //fills navigation panel with customers from backend
   getCustomer(): void {
@@ -38,3 +38,5 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/dashboard/stranka', this.item.name])
   }
 }
+
+

@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { RegisterComponent } from './register/register.component';
     MatFormFieldModule,
     MatExpansionModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ],  
   providers: [],
   bootstrap: [AppComponent]

@@ -27,10 +27,14 @@
   }
 
   .log-center{
-   background-image: url(https://media-exp1.licdn.com/dms/image/C4D1BAQGf4HrYomPPaQ/company-background_10000/0/1549289139495?e=2159024400&v=beta&t=yT8_j2Q_157cNyCt23BdcqSjPrLUbMmzDpWK6BYNus4);
+    background-image: url(https://wallpaperaccess.com/full/1079100.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
+  
