@@ -10,7 +10,8 @@
           </mat-form-field>
       </p>
       <div *ngIf="isSubmitted && formControls.email.errors">
-        <div *ngIf="formControls.email.errors.required">Username is required</div></div>
+        <mat-error *ngIf="formControls.email.errors.required">>Username is required</mat-error>
+      </div>       
       <p>
           <mat-form-field>
               <input  matInput 

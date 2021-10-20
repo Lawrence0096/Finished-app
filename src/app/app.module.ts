@@ -26,10 +26,15 @@ import { EventsComponent} from './events.component/events.component';
 import { ListComponent } from './_components/list.component/list.component';
 import { MatSliderModule} from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login.component/login.component';
+import { DashboardComponent } from './dashboard.component/dashboard.component';
+import { RegisterComponent } from './register.component/register.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { RefreshRateSliderComponent } from './_components/refresh-rate-slider/refresh-rate-slider.component';
+import { UserbarComponent } from './_components/userbar/userbar.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +45,10 @@ import {MatMenuModule} from '@angular/material/menu';
     ListComponent,
     LoginComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    SettingsMenuComponent,
+    RefreshRateSliderComponent,
+    UserbarComponent,
   ],
 
   imports: [
@@ -66,7 +74,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatExpansionModule,
     MatSliderModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],  
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Mock } from '../_interfaces/mock';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,9 @@ import { BehaviorSubject, interval, never, Observable, of, Subscription, timer }
 import { switchMap } from 'rxjs/internal/operators';
 import { MatSliderChange } from '@angular/material/slider';
 import { Events } from '../_interfaces/events';
+import { RefreshRateSliderComponent } from '../_components/refresh-rate-slider/refresh-rate-slider.component';
+
+
 
 @Component({
   selector: 'app-events',
@@ -17,15 +20,16 @@ import { Events } from '../_interfaces/events';
 })
 export class EventsComponent implements OnInit, OnDestroy {
 
+
   //spremenljivke za prikaz paginatorja in filtra
   isLoadingTableFeatures = false;  
-  isLoadingEventTableData$ = this.dashboardService.IsloadingEventTableData.asObservable();
+  isLoadingEventTableData$ = this.eventsService.IsloadingEventTableData.asObservable();
 
   //Podatki za table
   dashboardTableData!: MatTableDataSource<Events>
   dashboardTableColumsIndex: string[] = [];
   
-  constructor(private dashboardService :EventsService) { }
+  constructor(private eventsService :EventsService) { }
 
 
   //test
@@ -37,12 +41,13 @@ export class EventsComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    this.NekiNeki.unsubscribe();
+    //this.NekiNeki.unsubscribe(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    this.tickNumber.unsubscribe();
   }
 
 
   getTableData(){
-    this.dashboardService.getDashboardEventTableData2().pipe(takeUntil(this.ngUnsubscribe))
+    this.eventsService.getDashboardEventTableData2().pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((res) => {
         this.dashboardTableData = new MatTableDataSource<Events>(res);
         this.isLoadingTableFeatures = true
@@ -50,7 +55,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   getTableDataReload(){
-      this.dashboardService.getDashboardEventTableDataReload().pipe(takeUntil(this.ngUnsubscribe))
+      this.eventsService.getDashboardEventTableDataReload().pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => {
           this.dashboardTableData = new MatTableDataSource<Events>(res);
         })
@@ -64,7 +69,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   //Dinamični stolpci
   getDynamicIndex(): void {
-    this.dashboardService.getDashboardEventTableData2()
+    this.eventsService.getDashboardEventTableData2()
       .subscribe((res) => {
         this.dashboardTableData.filteredData = res;
         this.dashboardTableColumsIndex = Object.getOwnPropertyNames(this.dashboardTableData.filteredData[0]);
@@ -77,61 +82,56 @@ export class EventsComponent implements OnInit, OnDestroy {
     console.log(element)
   }
 
-  public NekiNeki = new BehaviorSubject<any>(5000);
+  //public NekiNeki = new BehaviorSubject<any>(5000);
+  private tickNumber = new BehaviorSubject<any>(60000);
+  playing2: BehaviorSubject<any> = new BehaviorSubject({playing: false, delay: 1000})
+  observable2$: Observable<any> = this.playing2.pipe( switchMap(e => !!e.playing ? interval(e.delay).pipe(startWith('start with delay of ' + e.delay/1000 + ' sconds')) : of(null)));
 
-  //@ts-ignore
 
-  playing: BehaviorSubject<any> = new BehaviorSubject({playing: false, delay: 1000})
-  observable$: Observable<any> = this.playing.pipe( switchMap(e => !!e.playing ? interval(e.delay).pipe(startWith('start with delay of ' + e.delay/1000 + ' sconds')) : of(null)));
-
+//  playing: BehaviorSubject<any> = new BehaviorSubject({playing: false, delay: 1000})
+//observable$: Observable<any> = this.playing.pipe( switchMap(e => !!e.playing ? interval(e.delay).pipe(startWith('start with delay of ' + e.delay/1000 + ' sconds')) : of(null)));
 
   tick: Subscription = new Subscription();
-  reset$ = new Subject<void>()
-
-  ngOnInit(): void{
-    /*this.subscription = this.everyFiveSeconds.subscribe(()=> {this.getTableData(), this.getDynamicIndex(), console.log(this.x)});
-    this.NekiNeki.subscribe( res => {
-      console.log(res); 
-      setInterval(() => {
-        alert(res * 1000); 
-      }, res * 1000);
-    })*/
-   
-      /*      
-      this.NekiNeki.subscribe(data => {
-        playing.next({playing: false, delay: 0})
-        playing.next({playing: true, delay: data})
-      })
-
-      let playing = new BehaviorSubject({playing: true, delay: 1000})
-      const observable = playing.pipe(
-        switchMap(e => !!e.playing ? interval(e.delay).pipe(startWith('start')) : of(null))
-      )
-      observable.subscribe(data => console.log(data))
-      playing.next({playing: true, delay: 2000})
-      */
+  
 
 
+ /*
+  formatLabel(value: number) {
+    return value;
+  }
+
+  onInputChange(event: MatSliderChange){
+    //console.log(this.x)
+    this.NekiNeki.next(event.value! * 1000)
+  } */
+
+  ngOnInit(): void{   
+
+    this.eventsService.sliderData.subscribe((res) => { this.tickNumber.next(res * 1000), console.log(res, this.tickNumber)} )
+
+
+      /*
       this.observable$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
-        console.log(data)
-        console.log('api call')
         this.getTableDataReload();
+      })*/
+
+      this.observable2$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
+        this.getTableDataReload();
+        console.log("reload:", data);
       })
 
-      // szbscribe to the slider change and set a new delay value
+      /*
       this.NekiNeki.subscribe(data => {
         this.playing.next({playing: true, delay: data})
+      })*/
+
+      this.tickNumber.subscribe(data => {
+        this.playing2.next({playing : true, delay: data})
       })
     
       this.getTableData();
       this.getDynamicIndex();  
-      
   }
-  formatLabel(value: number) {
-    return value;
-  }
-  onInputChange(event: MatSliderChange){
-    //console.log(this.x)
-    this.NekiNeki.next(event.value! * 1000)
-  } 
+
 }
+ 

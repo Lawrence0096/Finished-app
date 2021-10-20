@@ -362,13 +362,15 @@
       <mat-progress-bar mode="indeterminate" style="height: 5px!important; margin-top: 16.5px;"></mat-progress-bar>
     </ng-container>
     <ng-container *ngIf="!(_isLoadingCustomerEventData$ | async)">
-      <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
-      <app-table 
-          [displayFilter]='switchFalse' 
-          [displayPaginator]='switchFalse' 
-          [displayedColumns]='dataCompanyColums'
-          [dataSource]='customerDetailTableData'>
-      </app-table>
+      <div style="margin-left: 10px;">
+        <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
+        <app-table 
+            [displayFilter]='switchFalse' 
+            [displayPaginator]='switchFalse' 
+            [displayedColumns]='dataCompanyColums'
+            [dataSource]='customerDetailTableData'>
+        </app-table>
+      </div>     
     </ng-container> 
   </div>
 </div>

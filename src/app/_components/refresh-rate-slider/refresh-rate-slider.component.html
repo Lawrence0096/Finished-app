@@ -1,0 +1,17 @@
+<!--<mat-slider
+        thumbLabel
+        (input)="onInputChange2($event)"
+        [displayWith]="formatLabel"
+        tickInterval="5"
+        step="2"
+        min= "2"
+        value = "60"
+        max="60"
+        aria-label="units">
+</mat-slider> -->
+
+<mat-slider [min]="0" [max]="6" [step]="1" value = "6" (change)="onInputChange($event)"></mat-slider>
+<span >{{finalValue}} seconds</span>
+
+<button mat-button (click)= "onConfirmClick2($event)">Confirm</button>
+<!-- 2,5,10,15,30,45 in 60-->

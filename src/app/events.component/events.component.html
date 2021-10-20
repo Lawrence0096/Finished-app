@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="isLoadingEventTableData$ | async">
         <mat-progress-bar 
                 mode="indeterminate" 
@@ -14,8 +15,7 @@
         [displayedColumns] = 'dashboardTableColumsIndex'
         >
 </app-table>
-
-<mat-slider
+<!--<mat-slider
         thumbLabel
         (input)="onInputChange($event)"
         [displayWith]="formatLabel"
@@ -25,5 +25,6 @@
         value = "60"
         max="120"
         aria-label="units">
-</mat-slider>
+</mat-slider>-->
+
 

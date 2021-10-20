@@ -24,11 +24,11 @@ export class CustomerDetailService  {
   //@ts-ignore
   public selectedCompany$ = new BehaviorSubject<Customer?>(null);
 
-
+/*
   getCustomerTableData(): Observable<Mock[]>{
       this.IsloadingCompanyEventData.next(true);
       return this.customerAPIService.getCustomerEventData().pipe(finalize(() => this.IsloadingCompanyEventData.next(false)))
-  }   
+  }   */
 
   getCustomerId(customerID: number): Observable<CustomerDetails>{
       this.IsloadingCustomerDetailsData.next(true);
@@ -36,16 +36,28 @@ export class CustomerDetailService  {
   }
 
 
-
+ 
 
   //Event new data
   getCustomerEventId ( customerID : number): Observable<any> {
     this.IsLoadingCustomerEventData.next(true)
     return this.customerAPIService.getCustomerData2(customerID).pipe(finalize(() => this.IsLoadingCustomerEventData.next(false)))
   }
+
+  getCustomerIdReload(customerID:any): Observable<any>{
+    return this.customerAPIService.getCustomerData2(customerID);
+  }
   
 
+  getCustomerEventidReload(customerID:any): Observable<any>{
+    console.log("success", customerID)
+    return this.customerAPIService.getCustomerData(customerID)
+   
+  }
 
+
+  
+  sliderData: BehaviorSubject<any> = new BehaviorSubject<any>(60000);
 
 
   //iz app.component.ts pridobi podatkovne parametre (ID,NAME), katere stranimo v Behavior subject

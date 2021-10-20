@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Customer } from 'src/app/_interfaces/customer';
+import { Customer } from '../../_interfaces/customer';
 import { Input } from '@angular/core';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { finalize } from 'rxjs/internal/operators';
 import { CustomerAPIService } from './customer-api.service';
@@ -26,4 +26,7 @@ export class EventsService {
     getDashboardEventTableDataReload(): Observable<Events[]> {
         return this.customerAPIService.getEventData2();
     }
+
+
+    sliderData: BehaviorSubject<any> = new BehaviorSubject<any>(60000);
 }

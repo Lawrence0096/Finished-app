@@ -24,3 +24,27 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
   .pie-label {
     font-size: 16px!important;
 }
+
+
+/* */
+
+
+th {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+td {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+.mat-sort-header {
+  justify-content: center !important;
+}
+
+.mat-sort-header-container{
+    margin-left: 20px;
+  }

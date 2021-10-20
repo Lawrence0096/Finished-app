@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Mock } from 'src/app/_interfaces/mock';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Input } from '@angular/core';
-import { Events } from 'src/app/_interfaces/events';
+import { Events } from '../../_interfaces/events';
 
 
 @Component({
