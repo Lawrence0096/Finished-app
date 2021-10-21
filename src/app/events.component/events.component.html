@@ -10,7 +10,7 @@
 <app-table 
         [displayFilter] = 'isLoadingTableFeatures' 
         [displayPaginator] = 'isLoadingTableFeatures' 
-        (listenParentHandler)= 'tableRowClick($event)'
+        (listenToTableClick)= 'tableRowClick($event)'
         [dataSource] = 'dashboardTableData'
         [displayedColumns] = 'dashboardTableColumsIndex'
         >

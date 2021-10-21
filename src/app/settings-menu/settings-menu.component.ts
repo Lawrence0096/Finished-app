@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings-menu',
@@ -11,5 +12,11 @@ export class SettingsMenuComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  value2:any;
+  finalValue2: any;
+
+ 
+  
 
 }

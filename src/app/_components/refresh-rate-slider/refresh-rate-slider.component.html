@@ -10,8 +10,14 @@
         aria-label="units">
 </mat-slider> -->
 
-<mat-slider [min]="0" [max]="6" [step]="1" value = "6" (change)="onInputChange($event)"></mat-slider>
+<mat-slider [min]="0" 
+[max]="6" 
+[step]="1" 
+[(ngModel)]="value"
+(change)="onInputChange($event)"
+></mat-slider>
 <span >{{finalValue}} seconds</span>
 
-<button mat-button (click)= "onConfirmClick2($event)">Confirm</button>
+<button mat-button mat-dialog-close (click)='reset()'>Close</button>
+
 <!-- 2,5,10,15,30,45 in 60-->

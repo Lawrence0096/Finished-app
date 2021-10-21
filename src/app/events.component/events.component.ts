@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EventsService } from '../_services/dashboard.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { map, repeatWhen, startWith, takeUntil } from 'rxjs/internal/operators';
-import { BehaviorSubject, interval, never, Observable, of, Subscription, timer } from 'rxjs';
+import { BehaviorSubject, interval, never, Observable, ObservedValueOf, of, Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/internal/operators';
 import { MatSliderChange } from '@angular/material/slider';
 import { Events } from '../_interfaces/events';
