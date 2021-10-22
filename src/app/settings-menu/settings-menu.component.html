@@ -1,8 +1,15 @@
 <p>Refresh rate</p>
-<app-refresh-rate-slider
-  (value) = 'value2'
-  (sliderValue) = 'finalValue2'
-></app-refresh-rate-slider>
+<mat-slider 
+    [min]="0" 
+    [max]="6" 
+    [step]="1" 
+    [(ngModel)]="value" 
+    (change)="onInputChange($event)">
+</mat-slider>
+
+<span>{{finalValue}} seconds</span>
+
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Confirm</button>
+  <button mat-button mat-dialog-close (click)='reset()'>Cancel</button>
 </mat-dialog-actions>

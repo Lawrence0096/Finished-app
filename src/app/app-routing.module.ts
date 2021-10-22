@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard.component/dashboard.component';
 import { AuthGuardService } from './_services/authguard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {path: '', redirectTo: '/login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], children: [
     {
@@ -25,8 +25,6 @@ const routes: Routes = [
    }
   ]},
   
-  //{path: 'home', component: EventsComponent},
-  //{path: 'stranka/:id', component: CustomerDetailComponent }
 ];
 
 @NgModule({

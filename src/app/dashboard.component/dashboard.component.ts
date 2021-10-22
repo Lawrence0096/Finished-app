@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerAPIService } from '../_services/customer-api.service';
+import { DashboardAPIService } from '../_services/dashboard-api.service';
 import { CustomerDetailService } from '../_services/customer-detail.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import {MatDialog} from '@angular/material/dialog';
 import { SettingsMenuComponent } from '../settings-menu/settings-menu.component';
-import { EventsService } from '../_services/dashboard.service';
+
 
 
 @Component({
@@ -18,36 +18,31 @@ export class DashboardComponent implements OnInit {
   
   item: any;
   customerList: any[] = [];
-  isLoadingUserBar = true;
 
   constructor(private router: Router,        
     private customerDetailService:CustomerDetailService,
-    private customerAPIservice: CustomerAPIService, 
-    private authenticationService:  AuthenticationService,
+    private customerAPIservice: DashboardAPIService, 
+    private authenticationService: AuthenticationService,
     public dialog: MatDialog
     ) { }
 
-
-  sliderData:any;
-
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     this.getCustomer()
   }
 
-  //fills navigation panel with customers from backend
+  //fills navigation panel with customers from backend //refactor
   getCustomer(): void {
-    this.customerAPIservice.getCustomers()
+    this.customerAPIservice.getCustomersFromApi()
       .subscribe(res => {
         this.customerList.push(...res)
       })
   }
+
   logout(){
     if (this.authenticationService.isUserLoggedIn())
       this.router.navigate(['/login'])
   }
 
-  //1
   openDialog() {
     const dialogRef = this.dialog.open(SettingsMenuComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -55,12 +50,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
-
-
   //sends clicked data to clickedCompany Service 
   public customerSelected(data: any) {
-      //console.log('companySelected', data)
       this.customerDetailService.setSelectedCompany(data)
       //navigation
       this.item = data

@@ -2,7 +2,7 @@
     <div class="whatever2">
         <mat-drawer-container>
               <mat-drawer mode="side" opened class="whatever">
-                    <mat-list class="sideNav">
+                    <div class="sideNav">
                                 <img src="../assets/logo.jpg" alt="" style="width: 150px; height: 50px;">
                                 <h1 id="id_h1">Stranke</h1>
                                 <h1 id="id_h2" style="margin-bottom: -4px;" routerLink="/dashboard/home"><button mat-button>Home</button></h1>
@@ -10,10 +10,10 @@
                                 [listItems] = 'customerList'
                                 (onSelectListItem) = 'customerSelected($event)'                                   
                                 ></app-list>
-                    </mat-list>                  
+                    </div>                  
               </mat-drawer> 
               <mat-drawer-content class="whatever3">
-                    <ng-container *ngIf="isLoadingUserBar">
+                    
                         <div class="userbar" style="display: flex; justify-content: flex-end; align-items: center;border-bottom: 1px dotted rgb(122, 122, 122);">
                               <p style="margin-right: 10px; margin-top: 10px">Hello Admin!</p>
                               <mat-icon id="icon" style="transform: scale(1.5); margin-right: 30px; cursor: pointer;  " [matMenuTriggerFor]="menu"  aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
@@ -22,7 +22,7 @@
                                 <button mat-menu-item (click)=  logout()>Log Out</button>
                               </mat-menu>
                         </div>
-                    </ng-container>                                                                 
+                                                                                   
                     <router-outlet></router-outlet>
               </mat-drawer-content>
         </mat-drawer-container>

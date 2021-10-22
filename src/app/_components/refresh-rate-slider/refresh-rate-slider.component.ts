@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider/slider';
-import { EventsService } from '../../_services/dashboard.service';
+import { EventsService } from '../../_services/events.service';
 import { CustomerDetailService } from 'src/app/_services/customer-detail.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -11,16 +11,13 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class RefreshRateSliderComponent implements OnInit, AfterViewInit {
 
-  @Output() onSlide: EventEmitter<any> = new EventEmitter();
-  @Output() cancelSlide: EventEmitter<any> = new EventEmitter();
-
   value: any = 6;
   finalValue: any = 60;
+  stepIndex: number = 0;
+  steps: number[] = [2, 5, 10, 15, 30, 45, 60];
 
-  
-
-  constructor(private eventsService : EventsService, 
-  private customerDetailService: CustomerDetailService) { }
+  constructor(private eventsService: EventsService,
+    private customerDetailService: CustomerDetailService) { }
   ngOnInit(): void {
   }
 
@@ -28,27 +25,14 @@ export class RefreshRateSliderComponent implements OnInit, AfterViewInit {
     return value;
   }
 
-  // 2,5,10,15,30,45 in 60
-  stepIndex: number = 0;
-  steps: number[] = [2,5,10,15,30,45,60];
-  //@ts-ignore
-  
+  anyany: any = 6;
+  anyany2: any = 60;
 
-  displayIndex(){
-    let displayedIndex = localStorage.getItem('userselectedIndex')
-    console.log(displayedIndex)
-    this.finalValue = displayedIndex;
+  reset() {
+    localStorage.setItem('userselection', this.anyany)
+    localStorage.setItem('userselectedIndex', this.anyany2)
   }
 
-  anyany:any = 6;
-  anyany2:any = 60;
-
-  loading2: number = 0;
-  reset(){
-    localStorage.setItem('userselection', this.anyany )
-    localStorage.setItem('userselectedIndex', this.anyany2 )
-  }
-  
   onInputChange($event: any) {
     this.stepIndex = +$event.value;
     localStorage.setItem('userselection', $event.value);
@@ -63,7 +47,5 @@ export class RefreshRateSliderComponent implements OnInit, AfterViewInit {
     let displayedIndex2 = localStorage.getItem('userselectedIndex')
     this.finalValue = displayedIndex2;
     this.value = index;
-
-   
   }
 }
