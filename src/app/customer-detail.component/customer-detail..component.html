@@ -5,15 +5,16 @@
         <mat-progress-bar mode="indeterminate" style="height: 5px!important;"></mat-progress-bar>
       </ng-container>
       <ng-container *ngIf="!(_isLoadingCustomerDetailsData$ | async )">
-        <h1 style="font-family: 'Roboto', sans-serif; font-size: 17px; margin-top: -8px;">STRANKA: <b>{{(_selectedCustomer$ | async)?.name}}</b>
+        <h1 style="font-family: 'Roboto', sans-serif; font-size: 17px; margin-top: -8px;">STRANKA:
+          <b>{{(_selectedCustomer$ | async)?.name}}</b>
         </h1>
         <ng-container *ngIf="showNoteMessage">
-          <div class="Box_container" [ngStyle]= "{'background-color': (_selectedCustomer$ | async)?.companyDetails?.note?.bgndcolor}" >
-            
-              <p id='Container_paragraph'>
-                {{(_selectedCustomer$ | async)?.companyDetails?.note?.data}}
-              </p>                
-            
+          <div class="Box_container"
+            [ngStyle]="{'background-color': (_selectedCustomer$ | async)?.companyDetails?.note?.bgndcolor}">
+
+            <p id='Container_paragraph'>
+              {{(_selectedCustomer$ | async)?.companyDetails?.note?.data}}
+            </p>
           </div>
         </ng-container>
         <br>
@@ -21,351 +22,304 @@
           <button mat-button (click)="openAll()">Expand All</button>
           <button mat-button (click)="closeAll()">Collapse All</button>
         </div>
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="isOpened1" (click)=expansionStatus1()>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-               <b>SQL</b> 
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            
-              <div id="Content_container" style="margin-top: 0px;">
-                <p style="font-size: 14px;" id='Container_paragraph'>
-                  Data directory: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.datadir}}</b> <br>
-                  Errors: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.errors}}</b> <br>
-                  Last start: <b> {{(_selectedCustomer$ | async)?.companyDetails?.mysql?.last_start}}</b> <br>
-                  Slow quaries: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.["slow queries"]}}</b> <br>
-                  SSL: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.ssl}}</b> <br>
-                  Version: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.version}}</b>
-                </p>
-              </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+        
         <mat-accordion>
           <mat-expansion-panel [expanded]="isOpened2" (click)=expansionStatus2()>
             <mat-expansion-panel-header>
               <mat-panel-title>
-               <b>System information</b> 
+                <b>System</b>
               </mat-panel-title>
             </mat-expansion-panel-header>
-          
-              <div id="Content_container">
-                   
-                    <h3 id="SectionHeaders">CPU:</h3>
-                    <section class="example-section" style="width: 95%; margin-top: -20px;">
-                      Count: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}} </b> <br>
-                      Usage: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}} </b> %
-                    </section>
-                    <section class="example-section" style="width: 95%; margin-top: 5px">
-                      <mat-progress-bar class="green-progress" [mode]="mode"
-                        value="{{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}}"
-                        [bufferValue]="bufferValue">
-                      </mat-progress-bar>
-                      <div style="position: relative; padding: 10px; color: white; margin-top: -29px;"> Usage:
-                        {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}} % </div>
-                    </section>
-                
-                           
-                
-                  
-                    <div class="cont">
-                      <h3 id="SectionHeaders">DISKS:</h3>
-                      <div class="DiskDisplay">
-                        <ng-container  *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives">
 
-                          <mat-card [ngStyle]= "{'background-color': item.bgndcolor !== null ? item.bgndcolor : ''}" class="MatcardDisk">
-                            
-                              {{item.volume.toString()| slice:0:3}}:
-                              <br>
-                              Installed:<b> {{item.installed.toString()| number:'1.0-0' }} MB </b>
-                              <br>
-                              Free space: <b> {{item.free.toString()| number:'1.0-0'}} MB </b>
-                              <br>
-                              Total: <b> {{(item.installed + item.free).toString()| number:'1.0-0'}} MB </b>                                                       
-                          </mat-card>                         
-                        </ng-container>
-                      </div>
+            <div id="Content_container" style="margin-top: -5px;">
 
-                      <div style="display: flex; justify-content: space-between; margin-top: 10px;" >
-                        <div  style="width: 50%;">
-                          <ng-container *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives">
-                            <b>{{item.volume.toString()| slice:0:3}}:</b>
-                            <img src="../../../assets/Drive.png" style="height: 50px; width: 50px; margin-top: -10px;" alt="">
-                            <section class="example-section" style="width: 100%; margin-top: 5px;">
-                              <mat-progress-bar class="green-progress" [mode]="mode"
-                                value="{{ item.free *  100 / (item.installed! + item.free! )}}" [bufferValue]="bufferValue">
-                              </mat-progress-bar>
-                              <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
-                                Available: {{(item.free! * 100 / (item.installed! + item.free!)).toString() |
-                                number:'1.0-0'}} %
-                              </div>
-                            </section>
-                          </ng-container>
-                        </div>
-                        <div style="width: 50%; margin-left: 10px;">
-                          <div >
-                            <h3 id="SectionHeaders" style="margin-top: 20px;">RAM</h3>
-                            <div style="margin-top: -10px;">
-                              Free: <span> <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free?.toString()|
-                                slice:0:1 }} GB</b> </span> <br>
-                            Installed: <span> <b>{{(_selectedCustomer$ |
-                                async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:2}} GB</b> </span> <br>
-                            Total: <b> {{((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! + (_selectedCustomer$ |
-                              async)?.companyDetails?.system?.ram?.installed!).toString() | slice:0:2 }} GB</b>
-                            <section class="example-section" style="width: 95%; margin-top: 5px;">
-                              <mat-progress-bar class="green-progress" [mode]="mode"
-                                value="{{(_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! *100 /  
-                                ((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! + 
-                                (_selectedCustomer$ | async)?.companyDetails?.system?.ram?.installed!) }}"
-                                [bufferValue]="bufferValue">
-                              </mat-progress-bar>
-                              <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
-                                Free: {{((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! *100 /
-                                ((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! + (_selectedCustomer$ |
-                                async)?.companyDetails?.system?.ram?.installed!)).toString() | slice: 0 : 2 }} %
-                              </div>
-                            </section>
-                            </div>
-                           </div>    
-                           
-                           <div id='Container_paragraph'>
-                            <h3 id="SectionHeaders" style="margin-top: 20px; margin-bottom: -1px;">OPERATING SYSTEM</h3>
-                           Boot: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.os?.boot}}</b> <br> 
-                           Version: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.os?.version}}</b>
-                            
-                          </div>                          
-                           
-                          </div>
-                      </div>    
-                    </div>
-               
-
-                     
-                      
-                      
-                    
-                  
-                
-                
+              <div id='Container_paragraph' style="margin-top: -5px; margin-bottom: 15px; font-size: 13.5px;">
+                <h3 id="SectionHeaders" style="margin-top: 0px; margin-bottom: -1px;">OPERATING SYSTEM</h3>
+                Version: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.os?.version}}</b> <br>
+                Boot: <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.os?.boot}}</b>
               </div>
-            
-            <!--End-->
+
+              <div style="display: flex; justify-content:flex-start; gap: 12px;">
+                <div style="width: 15%;">
+                  <h3 id="SectionHeaders">CPU:</h3>
+                  <section class="example-section" style="width: 95%; margin-top: -20px;">
+                    Count: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.count}} </b> <br>
+                    Usage: <b> {{(_selectedCustomer$ | async)?.companyDetails?.system?.cpu?.usage}} % </b>
+                  </section>
+                  <div>
+                    <h3 id="SectionHeaders" style="margin-top: 10px;">RAM</h3>
+                    <div style="margin-top: -20px;">
+                      Free: <span> <b>{{(_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free?.toString()|
+                          slice:0:1 }} GB</b> </span> <br>
+                      Installed: <span> <b>{{(_selectedCustomer$ |
+                          async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:2}} GB</b> </span> <br>
+                      Total: <b> {{((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! +
+                        (_selectedCustomer$ |
+                        async)?.companyDetails?.system?.ram?.installed!).toString() | slice:0:2 }} GB</b>
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 80%;">
+                  <h3 id="SectionHeaders">DISKS:</h3>
+                  <div class="DiskDisplay">
+                    <ng-container *ngFor="let item of (_selectedCustomer$ | async)?.companyDetails?.system?.drives">
+                      <mat-card style="font-size: 13px;"
+                        [ngStyle]="{'background-color': item.bgndcolor !== null ? item.bgndcolor : ''}"
+                        class="MatcardDisk">
+                        {{item.volume.toString()| slice:0:3}}:
+                        <br>
+                        Installed:<b> {{item.installed.toString()| number:'1.0-0' }} MB </b>
+                        <br>
+                        Free space: <b> {{item.free.toString()| number:'1.0-0'}} MB </b>
+                        <br>
+                        Total: <b> {{(item.installed + item.free).toString()| number:'1.0-0'}} MB </b>
+                      </mat-card>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
           </mat-expansion-panel>
         </mat-accordion>
-      <mat-accordion>
+
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="isOpened1" (click)=expansionStatus1()>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b>SQL</b>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div id="Content_container" style="margin-top: -4px;">
+              <p style="font-size: 14px;" >
+                Version: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.version}}</b> <br>
+                Last_start: <b> {{(_selectedCustomer$ | async)?.companyDetails?.mysql?.last_start}}</b> <br>
+                SSL: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.ssl}}</b> <br>              
+                Errors: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.errors}}</b> <br>               
+                Slow quaries: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.["slow queries"]}}</b> <br>
+                Data directory: <b>{{(_selectedCustomer$ | async)?.companyDetails?.mysql?.datadir}}</b> 
+                
+              </p>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+
+
+
+
+
+
+        <!--End-->
+        <mat-accordion>
           <mat-expansion-panel [expanded]="isOpened3" (click)=expansionStatus3()>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                  <b>TrackNav</b> 
+                <b>TrackNav</b>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <!--start-->
-              <div style="display: flex;" class="HELLO">
-                <div id='Container_paragraph' style="width: 40%;">
-                  <h3 id="SectionHeaders">Inbound:</h3>
-                  <div class="flexBound">
+            <!--start-->
 
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">Https initin:</h4>
-                      <p>
-                        Avg: <b>{{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.avg}}</b><br>
-                        Max: <b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.max}}</b><br>
-                        Min: <b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.min}}</b><br>
-                      </p>
-                    </mat-card>
-              
-              
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">Intin:</h4>
-                      Avg: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.avg}}</b> <br>
-                      Max: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.max}}</b><br>
-                      Min: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.min}}</b> <br>
-                    </mat-card>
-              
-              
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">sys_tcp_io:</h4>
-                      Avg: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.avg}}</b> <br>
-                      Max: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.max}}</b> <br>
-                      Min: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.min}}</b> <br>
-                    </mat-card>
-              
-                  </div>
-                </div>
-              
-                <div d='Container_paragraph' >
-                  <h3 id="SectionHeaders">Outbound:</h3>
-                  <div class="flexBound">
-              
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">Https initout:</h4>
-                      <p>
-                        Avg: <b>{{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.avg}}</b><br>
-                        Max: <b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.max}}</b><br>
-                        Min: <b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.min}}</b><br>
-                      </p>
-                    </mat-card>
-              
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">Intout:</h4>
-                      Avg: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.avg}}</b> <br>
-                      Max: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.max}}</b><br>
-                      Min: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.min}}</b> <br>
-                    </mat-card>
-              
-                    <mat-card class="matcard-padding">
-                      <h4 id="SectionHeaders">sys_tcp_io:</h4>
-                      Avg: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.avg}}</b> <br>
-                      Max: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.max}}</b> <br>
-                      Min: <b>{{(_selectedCustomer$ |
-                        async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.min}}</b> <br>
-                    </mat-card>
-              
-                  </div>
-                </div>
-              </div>
-                
-                <div id='Container_paragraph' class="letsdoit">
+            <div id='Container_paragraph' class="letsdoit">
+              <br>
+             
+              <mat-card class="matcard-padding2" style="width: 250px;">
+
+                <h3 id="Container_headers">Service</h3>
+                <p id='Container_paragraph'>
+
+                  Running: <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.service?.running}} </b> <br>
+                  Last_restart: <b> {{(_selectedCustomer$ |
+                    async)?.companyDetails?.tracknav?.service?.last_restart}} </b> <br>
+                    Planned_restart:<b> {{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.service?.planned_restart}} </b> <br>
+                  Managed_programs:<b> {{(_selectedCustomer$ |
+                    async)?.companyDetails?.tracknav?.service?.managed_programs_ok}} </b> <br>                                  
+                </p>
+              </mat-card>
+
+              <mat-card class="matcard-padding2">
+                <h3 id="Container_headers">Programs</h3>
+                <div style="margin-top: -10px;"
+                  [ngStyle]="{'color': (_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.txtcolor}">
+                  Active: <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.active}}</b> <br>
+                  Running: <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.running}}</b>
                   <br>
-
-                  <mat-card class="matcard-padding2">
-                      <h3 id="Container_headers">Programs</h3>
-                      <div style="margin-top: -10px;" [ngStyle]= "{'color': (_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.txtcolor}">
-                        Active: <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.active}}</b> <br>
-                        Running: <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.programs?.running}}</b>
-                        <br>
-                      </div>
-                  </mat-card>
-
-
-                  
-                  <mat-card class="matcard-padding2" style="width: 250px;">
-                    
-                      <h3 id="Container_headers">Service</h3>
-                      <p id='Container_paragraph'>
-                        Last restart: <b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.service?.last_restart}} </b> <br>
-                        Managed programs<b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.service?.managed_programs_ok}} </b> <br>
-                        Planned restart<b> {{(_selectedCustomer$ |
-                          async)?.companyDetails?.tracknav?.service?.planned_restart}} </b> <br>
-                        Running <b>{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.service?.running}} </b> <br>
-                      </p>
-                  
-                  </mat-card>
-                  <mat-card class="matcard-padding2">
-                    
-                      <h3 id="Container_headers">Tablets</h3>
-                      <div id='Container_paragraph'>
-                        Count: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count}} </b> <br>
-                        Online:<b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online}} </b> <br>
-                        <section class="example-section" style="width: 95%; margin-top: 5px;">
-                          <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 / 
-                            (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count!}}"
-                            [bufferValue]="bufferValue">
-                          </mat-progress-bar>
-                          <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
-                            Online: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 /
-                            (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count!).toString() |
-                            slice:0:2}} %
-                          </div>
-                        </section>
-                      </div>
-                    
-                  </mat-card>
-                  <mat-card class="matcard-padding2">
-                    
-                      <h3 id="Container_headers">Tachodl</h3>
-                      <p id='Container_paragraph'>
-
-                        Cards: <b> <span [ngStyle]= "{'background-color': (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tachodl?.program?.bgndcolor}">{{(_selectedCustomer$ |
-                            async)?.companyDetails?.tracknav?.tachodl?.program?.cards}}</span> </b> <br>
-                        Version: <b> <span>{{(_selectedCustomer$ |
-                            async)?.companyDetails?.tracknav?.tachodl?.program?.version}}</span> </b> <br>
-                        Drivers: <b> <span>{{(_selectedCustomer$ |
-                            async)?.companyDetails?.tracknav?.tachodl?.drivers?.state}}</span> </b> <br>
-                        Vehicles:<b> <span> {{(_selectedCustomer$ |
-                            async)?.companyDetails?.tracknav?.tachodl?.vehicles?.state}}</span> </b> <br>
-                      </p>
-                    
-                  </mat-card>
-                  <mat-card class="matcard-padding2">
-                    
-                      <h3 id="Container_headers">Vehicles</h3>
-                      <div id='Container_paragraph'>
-                        Count:<b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count}} </b> <br>
-                        Active: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active}} </b>
-                        <br>
-                        Online: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online}} </b>
-                        <br>
-                        <section class="example-section" style="width: 95%; margin-top: 5px;">
-                          <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 / 
-                              (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
-                            [bufferValue]="bufferValue">
-                          </mat-progress-bar>
-                          <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
-                            Active: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 /
-                            (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!).toString() |
-                            slice:0:2}} %
-                          </div>
-                        </section>
-                        <section class="example-section" style="width: 95%; margin-top: 5px;">
-                          <mat-progress-bar class="green-progress" [mode]="mode"
-                            value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 / 
-                              (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
-                            [bufferValue]="bufferValue">
-                          </mat-progress-bar>
-                          <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
-                            Online: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 /
-                            (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!).toString() |
-                            slice:0:2}} %
-                          </div>
-                        </section>
-                      </div>
-                    
-                  </mat-card>
                 </div>
+              </mat-card>
+
+
+              <mat-card class="matcard-padding2">
+
+                <h3 id="Container_headers">Vehicles</h3>
+                <div id='Container_paragraph'>
+                  Count:<b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count}} </b> <br>
+                  Active: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active}} </b>
+                  <br>
+                  Online: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online}} </b>
+                  <br>
+                  <section class="example-section" style="width: 95%; margin-top: 5px;">
+                    <mat-progress-bar class="green-progress" [mode]="mode" value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 / 
+                              (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
+                      [bufferValue]="bufferValue">
+                    </mat-progress-bar>
+                    <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
+                      Active: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.active! * 100 /
+                      (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!).toString() |
+                      slice:0:2}} %
+                    </div>
+                  </section>
+                  <section class="example-section" style="width: 95%; margin-top: 5px;">
+                    <mat-progress-bar class="green-progress" [mode]="mode" value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 / 
+                              (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!}}"
+                      [bufferValue]="bufferValue">
+                    </mat-progress-bar>
+                    <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
+                      Online: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.online! * 100 /
+                      (_selectedCustomer$ | async)?.companyDetails?.tracknav?.vehicles?.count!).toString() |
+                      slice:0:2}} %
+                    </div>
+                  </section>
+                </div>
+              </mat-card>
+             
+              <mat-card class="matcard-padding2">
+
+                <h3 id="Container_headers">Tablets</h3>
+                <div id='Container_paragraph'>
+                  Count: <b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count}} </b> <br>
+                  Online:<b> {{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online}} </b> <br>
+                  <section class="example-section" style="width: 95%; margin-top: 5px;">
+                    <mat-progress-bar class="green-progress" [mode]="mode" value="{{(_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 / 
+                            (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count!}}"
+                      [bufferValue]="bufferValue">
+                    </mat-progress-bar>
+                    <div style="position: relative; padding: 10px; color: white; margin-top: -29px;">
+                      Online: {{((_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.online! * 100 /
+                      (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tablets?.count!).toString() |
+                      slice:0:2}} %
+                    </div>
+                  </section>
+                </div>
+
+              </mat-card>
+              <mat-card class="matcard-padding2">
+
+                <h3 id="Container_headers">Tachodl</h3>
+                <div id='Container_paragraph'>
+                  <b>Programs:</b> <br>
+                      Cards: <b> <span
+                          [ngStyle]="{'background-color': (_selectedCustomer$ | async)?.companyDetails?.tracknav?.tachodl?.program?.bgndcolor}">{{(_selectedCustomer$
+                          |
+                          async)?.companyDetails?.tracknav?.tachodl?.program?.cards}}</span> </b> <br>
+                      Version: <b> <span>{{(_selectedCustomer$ |
+                          async)?.companyDetails?.tracknav?.tachodl?.program?.version}}</span> </b> <br>
+                          <br>
+                          
+                  
+                  Vehicles:<b> <span> {{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.tachodl?.vehicles?.state}}</span> </b> <br>
+                  Drivers: <b> <span>{{(_selectedCustomer$ |
+                    async)?.companyDetails?.tracknav?.tachodl?.drivers?.state}}</span> </b> <br>
+                  </div>
+              </mat-card>
+              
+
+              <mat-card class="matcard-padding2">
+
+                <h3 id="SectionHeaders">Communication Inbound:</h3>
+                <div class="flexBound">
+
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">sys_tcp_io:</h4>
+                    Avg: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.avg}}</b> <br>
+                    Max: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.max}}</b> <br>
+                    Min: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.sys_tcp_io?.min}}</b> <br>
+                  </mat-card>
+
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">Intin:</h4>
+                    Avg: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.avg}}</b> <br>
+                    Max: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.max}}</b><br>
+                    Min: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.inbound?.intin?.min}}</b> <br>
+                  </mat-card>
+                 
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">Https_initin:</h4>
+                    <p>
+                      Avg: <b>{{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.avg}}</b><br>
+                      Max: <b> {{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.max}}</b><br>
+                      Min: <b> {{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.inbound?.http_intin?.min}}</b><br>
+                    </p>
+                  </mat-card>
+
+                </div>
+              </mat-card>
+
+
+              <mat-card class="matcard-padding2">
+                <h3 id="SectionHeaders">Communication Outbound:</h3>
+                <div class="flexBound">
+
+
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">sys_tcp_io:</h4>
+                    Avg: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.avg}}</b> <br>
+                    Max: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.max}}</b> <br>
+                    Min: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.sys_tcp_io?.min}}</b> <br>
+                  </mat-card>
 
                
 
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">Intout:</h4>
+                    Avg: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.avg}}</b> <br>
+                    Max: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.max}}</b><br>
+                    Min: <b>{{(_selectedCustomer$ |
+                      async)?.companyDetails?.tracknav?.communication?.outbound?.intout?.min}}</b> <br>
+                  </mat-card>
+
+                  <mat-card class="matcard-padding">
+                    <h4 id="SectionHeaders">Https_initout:</h4>
+                    <p>
+                      Avg: <b>{{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.avg}}</b><br>
+                      Max: <b> {{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.max}}</b><br>
+                      Min: <b> {{(_selectedCustomer$ |
+                        async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.min}}</b><br>
+                    </p>
+                  </mat-card>
+                  
+                </div>
+              </mat-card>
+
+
+
+
+
+
+            </div>
             <!--end-->
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>
-         <!-- <mat-expansion-panel [expanded]="isOpened4" (click)=expansionStatus4() >
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Iframe
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="Box_container">
-              <div id="Content_container">
-                <h2 id="Container_headers">Iframe Placeholder</h2>
-                <p id='Container_paragraph'>
-                  <iframe src="" title="description">Hello World</iframe>
-                </p>
-              </div>
-            </div>
-          </mat-expansion-panel>-->
         </mat-accordion>
       </ng-container>
     </mat-card-content>
@@ -377,13 +331,10 @@
     <ng-container *ngIf="!(_isLoadingCustomerEventData$ | async)">
       <div style="margin-left: 10px;">
         <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
-        <app-table 
-            [displayFilter]='switchFalse' 
-            [displayPaginator]='switchFalse' 
-            [displayedColumns]='dataCompanyColums'
-            [dataSource]='customerDetailTableData'>
+        <app-table [displayFilter]='switchFalse' [displayPaginator]='switchFalse' [displayedColumns]='dataCompanyColums'
+          [dataSource]='customerDetailTableData'>
         </app-table>
-      </div>     
-    </ng-container> 
+      </div>
+    </ng-container>
   </div>
 </div>

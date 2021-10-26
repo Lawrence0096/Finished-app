@@ -64,6 +64,11 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   padding-left: 10px!important;
 }
 
+.hover-class:hover {
+  background-color: rgb(123, 179, 105)!important;
+  color: rgb(123, 179, 105)!important;
+}
+
 /*
   th.mat-header-cell :nth-of-type(2), td.mat-cell :nth-of-type(2), td.mat-footer-cell :nth-of-type(2){
   margin-left: 24px!important;
@@ -72,3 +77,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 
 
 */
+
+
+.mat-row:hover {
+  background-color: #f8db7a!important;
+}

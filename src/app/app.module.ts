@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RefreshRateSliderComponent } from './_components/refresh-rate-slider/refresh-rate-slider.component';
 import { UserbarComponent } from './_components/userbar/userbar.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormsModule,
     MatMenuModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

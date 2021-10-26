@@ -10,35 +10,24 @@
   </mat-paginator>
 </div>
 
+
 <!--Table-->
 <div class="example-container mat-elevation-z8">
   <table mat-table matSort #table [dataSource]="dataSource">
+
     
-    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns let i = index" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col}} </th> <!--Column Header-->
-      <td mat-cell *matCellDef="let element" style="cursor: pointer" [ngStyle]= "{'background-color': element.bgndcolor !== null ? element.bgndcolor : 'green'}"   > {{ element[col] }} </td> 
+      <td mat-cell *matCellDef="let element" style="cursor: pointer;" > {{ element[col] }} </td> 
       
-      
-      <!--Column rows-->
-
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox >
-        </mat-checkbox>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox>
-        </mat-checkbox>
-      </mat-cell>
-
-
-
-
-
-
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+    <tr  mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr  mat-row *matRowDef="let row; columns: displayedColumns; let i=index" 
+    (click)="toggleSelected(row, $event, i)" 
+    [ngClass]="row.isSelected ? 'selected-row' : 'not-selected-row'"
+    [ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}" 
+    ></tr>
                                                               <!--1  slice(0,5)-->
   </table>
 </div>
@@ -46,3 +35,4 @@
 
 <!--.reverse()-->
 <!--<mat-card [ngStyle]= "{'background-color': item.bgndcolor !== null ? item.bgndcolor : ''}" class="MatcardDisk"></mat-card>-->
+<!--[ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}"-->

@@ -12,6 +12,12 @@
     width: 100%;
   }
 
+
+    .hover-class:hover {
+      background-color: rgb(123, 179, 105)!important;
+      color: rgb(123, 179, 105)!important;
+    }
+
   .mat-drawer-container{
     background-color: #ffffff!important;
   }
@@ -21,7 +27,7 @@
   }
 
   .mat-row:hover {
-    background-color: #7ad4f8;
+    background-color: rgb(49, 211, 49)!important;
   }
   
   th.mat-header-cell {
@@ -45,3 +51,19 @@
     padding-left: 24px!important;
     margin-left: 24px!important;
   }
+
+
+
+
+.selected {
+  background-color: red;
+}
+
+.highlight :hover{
+  background: #42A948!important; /* green */
+}
+
+.selected-row {
+  background-color: rgb(49, 211, 49)!important;
+}
+

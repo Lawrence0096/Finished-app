@@ -52,11 +52,12 @@
 }
 #Container_headers{
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 #Container_paragraph{
-  font-size: 15px;
+  font-size: 13.5px;
+  margin-top: -10px;
 }
 
 #SectionHeaders2{
@@ -105,14 +106,14 @@ b {
 }
 
 .matcard-padding{
-    padding: 20px;
+    padding: 10px;
     min-width: 20px;
     border: 2px solid #f1f1f1;
 }
 
 .matcard-padding2{   
-    border: 2px solid #f1f1f1;
-    padding: 20px;
+    border: 2px solid #f8f7f7;
+    padding: 10px;
     margin-top: 5px;
     min-width: 120px;
 }
@@ -127,15 +128,16 @@ b {
 
 .MatcardDisk{
   border: 2px solid #f1f1f1;
-  min-width: 100px;
+  min-width: 40px;
   margin-top: -10px;
   margin-left: 1%;
 }
 
 
 .letsdoit{
+  font-size: 13.5px;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: -9px;
   gap: 5px;
 }
