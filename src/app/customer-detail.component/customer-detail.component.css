@@ -1,7 +1,7 @@
 .example-card1 {
     width: 60%;
     background-color: rgb(255, 255, 255);
-    height: 100%;
+    height: 3000px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -52,11 +52,11 @@
 }
 #Container_headers{
   font-weight: 600;
+  font-size: 16px;
 }
 
 #Container_paragraph{
   font-size: 15px;
-  margin-top: -15px;
 }
 
 #SectionHeaders2{
@@ -64,6 +64,7 @@
 }
 #SectionHeaders{
   font-weight: 600;
+  font-size: 14px;
 }
 .matcardFlex{
   display: flex;
@@ -99,22 +100,21 @@ b {
 .flexBound{
   display: flex;
   flex-direction: row;
-  width: 100%;
-  gap: 10px;
+  gap: 2px;
   flex-wrap: wrap;  
 }
 
 .matcard-padding{
     padding: 20px;
-    min-width: 120px;
+    min-width: 20px;
     border: 2px solid #f1f1f1;
 }
 
 .matcard-padding2{   
     border: 2px solid #f1f1f1;
     padding: 20px;
-    width: 92%;
     margin-top: 5px;
+    min-width: 120px;
 }
 
 .DiskDisplay{
@@ -127,6 +127,15 @@ b {
 
 .MatcardDisk{
   border: 2px solid #f1f1f1;
-  min-width: 200px;
+  min-width: 100px;
+  margin-top: -10px;
   margin-left: 1%;
+}
+
+
+.letsdoit{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 5px;
 }

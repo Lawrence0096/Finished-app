@@ -33,6 +33,7 @@ import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RefreshRateSliderComponent } from './_components/refresh-rate-slider/refresh-rate-slider.component';
 import { UserbarComponent } from './_components/userbar/userbar.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { UserbarComponent } from './_components/userbar/userbar.component';
     DashboardComponent,
     SettingsMenuComponent,
     RefreshRateSliderComponent,
-    UserbarComponent,
+    UserbarComponent
+    
   ],
 
   imports: [
@@ -73,7 +75,8 @@ import { UserbarComponent } from './_components/userbar/userbar.component';
     MatSliderModule,
     FormsModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

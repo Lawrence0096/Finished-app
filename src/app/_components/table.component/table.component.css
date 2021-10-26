@@ -40,3 +40,8 @@
   .mat-sort-header-container{
     margin-left: 10px;
   }
+
+  th.mat-header-cell :nth-of-type(2), td.mat-cell :nth-of-type(2), td.mat-footer-cell :nth-of-type(2){
+    padding-left: 24px!important;
+    margin-left: 24px!important;
+  }

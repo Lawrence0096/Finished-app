@@ -16,7 +16,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  //klik na posamezno podjetje
+
+  //sends Customer ID to parent 
   onClick(item: Customer): void 
   {
     this.onSelectListItem.emit(item)
