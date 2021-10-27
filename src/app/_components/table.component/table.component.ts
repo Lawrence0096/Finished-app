@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { Input } from '@angular/core';
 import { Events } from '../../_interfaces/events';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ThisReceiver } from '@angular/compiler';
 
 
 
@@ -88,6 +89,8 @@ export class TableComponent implements OnInit {
 
 
   previousSelected: any;
+
+  //old method
   toggleSelected(obj:any, event:any, alldata:any) {
     
       obj.isSelected = true;
@@ -98,6 +101,68 @@ export class TableComponent implements OnInit {
       } 
       
   } 
+
+  selectRow(row:any) {
+    this.selection.toggle(row);
+    this.events = this.selection.selected
+    console.log(this.events)
+    const countRed = this.events.filter((element) => element.bgndcolor === "#ff6060").length;
+    const countOrange = this.events.filter((element) => element.bgndcolor === "#ff9060").length;
+    console.log(countRed)
+    if (countRed === 3){
+      alert("You have selected 3  very important events")
+    }
+    if (countOrange === 3){
+      alert("You have selected 3 less important events")
+    }
+  }
 }
 
 
+
+//
+//console.log(this.selection.selected);
+
+//console.log(this.events)
+    //console.log(this.events[1].bgndcolor)
+    //this.events.forEach(myFuntion)
+    
+   /* for (let index = 0; index < this.events.length; ++index) {
+      var element = this.events[index];
+      console.log(element.bgndcolor)
+      var counter = 0
+     
+  }*/
+
+  /*this.events.forEach(function(element){
+    element.bgndcolor
+  })
+  this.events.forEach(function(element){
+    element.bgndcolor
+  })*/
+
+
+
+/*const array = [
+  {id: 12, name: 'toto'},
+  {id: 12, name: 'toto'},
+  {id: 42, name: 'tutu'},
+  {id: 12, name: 'toto'},
+];
+
+const id = 12;
+const count = array.filter((obj) => obj.id === id).length;
+
+console.log(count);*/
+
+
+ /* if (this.events[index].bgndcolor === "#ff6060") {
+        counter++
+        console.log(counter)
+      }*/
+
+      //if (this.events[index].bgndcolor === "#ff6060" ){
+         
+          
+        //  console.log("you have selected red event")
+      //}

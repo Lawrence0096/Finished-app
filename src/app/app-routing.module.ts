@@ -5,10 +5,12 @@ import { EventsComponent } from './events.component/events.component';
 import { LoginComponent } from './login.component/login.component';
 import { DashboardComponent } from './dashboard.component/dashboard.component';
 import { AuthGuardService } from './_services/authguard.service';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], children: [
     {
       path: '',

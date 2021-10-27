@@ -22,17 +22,21 @@
       
     </ng-container>
 
-    <tr  mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr  mat-row *matRowDef="let row; columns: displayedColumns; let i=index" 
-    (click)="toggleSelected(row, $event, i)" 
-    [ngClass]="row.isSelected ? 'selected-row' : 'not-selected-row'"
+    <tr  mat-header-row *matHeaderRowDef="displayedColumns.slice(0,5); sticky: true"></tr>
+    <tr  mat-row *matRowDef="let row; columns: displayedColumns.slice(0,5); let i=index" 
+    [ngClass]="{highlighted: selection.isSelected(row)}" 
+      (click)="selectRow(row)"
     [ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}" 
     ></tr>
-                                                              <!--1  slice(0,5)-->
+                                                             
   </table>
 </div>
 
 
 <!--.reverse()-->
+ <!--1  slice(0,5)-->
 <!--<mat-card [ngStyle]= "{'background-color': item.bgndcolor !== null ? item.bgndcolor : ''}" class="MatcardDisk"></mat-card>-->
 <!--[ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}"-->
+
+<!--(click)="toggleSelected(row, $event, i)" 
+    [ngClass]="row.isSelected ? 'selected-row' : 'not-selected-row'"-->

@@ -12,8 +12,7 @@
     width: 100%;
   }
 
-
-    .hover-class:hover {
+.hover-class:hover {
       background-color: rgb(123, 179, 105)!important;
       color: rgb(123, 179, 105)!important;
     }
@@ -30,31 +29,6 @@
     background-color: rgb(49, 211, 49)!important;
   }
   
-  th.mat-header-cell {
-    text-align: center !important;
-  }
-  mat-header-cell, mat-cell {
-    justify-content: center!important;
-    text-align: center !important;
-  }
-
-  th {
-    text-align: center !important;
-    vertical-align: middle !important;
-  }
-
-  .mat-sort-header-container{
-    margin-left: 10px;
-  }
-
-  th.mat-header-cell :nth-of-type(2), td.mat-cell :nth-of-type(2), td.mat-footer-cell :nth-of-type(2){
-    padding-left: 24px!important;
-    margin-left: 24px!important;
-  }
-
-
-
-
 .selected {
   background-color: red;
 }
@@ -67,3 +41,6 @@
   background-color: rgb(49, 211, 49)!important;
 }
 
+.mat-row.highlighted {
+  background: rgb(24, 255, 3)!important;
+}

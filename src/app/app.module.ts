@@ -35,6 +35,7 @@ import { RefreshRateSliderComponent } from './_components/refresh-rate-slider/re
 import { UserbarComponent } from './_components/userbar/userbar.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatSelectModule} from '@angular/material/select';
     DashboardComponent,
     SettingsMenuComponent,
     RefreshRateSliderComponent,
-    UserbarComponent
+    UserbarComponent,
+    RegisterComponent
     
   ],
 

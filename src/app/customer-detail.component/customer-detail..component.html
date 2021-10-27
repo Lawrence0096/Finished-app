@@ -53,9 +53,7 @@
                           slice:0:1 }} GB</b> </span> <br>
                       Installed: <span> <b>{{(_selectedCustomer$ |
                           async)?.companyDetails?.system?.ram?.installed?.toString()| slice:0:2}} GB</b> </span> <br>
-                      Total: <b> {{((_selectedCustomer$ | async)?.companyDetails?.system?.ram?.free! +
-                        (_selectedCustomer$ |
-                        async)?.companyDetails?.system?.ram?.installed!).toString() | slice:0:2 }} GB</b>
+                      
                     </div>
                   </div>
                 </div>
@@ -104,14 +102,6 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-
-
-
-
-
-
-
-
         <!--End-->
         <mat-accordion>
           <mat-expansion-panel [expanded]="isOpened3" (click)=expansionStatus3()>
@@ -330,7 +320,7 @@
     </ng-container>
     <ng-container *ngIf="!(_isLoadingCustomerEventData$ | async)">
       <div style="margin-left: 10px;">
-        <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500;">Dogodki za podjetje </h1>
+        <h1 style="margin-top: 13px; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 21px;">Dogodki za podjetje </h1>
         <app-table [displayFilter]='switchFalse' [displayPaginator]='switchFalse' [displayedColumns]='dataCompanyColums'
           [dataSource]='customerDetailTableData'>
         </app-table>
