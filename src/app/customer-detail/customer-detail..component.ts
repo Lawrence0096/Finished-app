@@ -39,7 +39,6 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, AfterViewInit
   private ngUnsubscribe = new Subject();
   public _selectedCustomer$ = this.customerDetailService.selectedCompany$.asObservable();
   public _selectedCustomer2$ = this.customerDetailService.selectedCompany2$.asObservable();
- 
   public _isLoadingCustomerDetailsData$ = this.customerDetailService.IsloadingCustomerDetailsData.asObservable();
   public _isLoadingCustomerEventData$ = this.customerDetailService.IsLoadingCustomerEventData.asObservable();
 
@@ -53,6 +52,7 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, AfterViewInit
   //Loading status properties 
   showNoteMessage: boolean = true;
   isLoading: boolean = true;
+  showNoteDiv = false
   
   //Table data propety 
   customerDetailTableData!:MatTableDataSource<any>
@@ -78,16 +78,17 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, AfterViewInit
           this.customerIdNum = res.id
           this.customerDetailService.getCustomerData(res.id)
             .subscribe(data => {
-              res.companyDetails = data;            
+              res.companyDetails = data; 
+              console.log(data)           
               //funkcija, ki preveri če so podatki v data.note prazni
-              /*if (data.note.data.length > 0) {
+             /* if (data.note.data.length > 0) {
                 //če podatki niso prazni potem se Note divizija prikaže
                 this.showNoteDiv = true
               } else if (data.note.data.length == 0) {
                 this.showNoteDiv = false
               } else {
                 this.showNoteDiv = true
-              }*/
+              } */
             })
         }
       })
@@ -106,21 +107,32 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, AfterViewInit
         }
       })
   }
-
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
   ngAfterViewInit(){
     //reloading Data
-    this.observable$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
-       //console.log("reload:", data);
+    this.observable$.pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(data => {
+      console.log("reload:", data);
       this.customerDetailService.reloadCustomerData(this.customerIdNum)
       this.customerDetailService.reloadCustomerEvent(this.customerIdNum)
     })
   }
+  events : any[] = new Array<any>() 
 
+  customerTableRowClick(element:any){
+    this.events = element
+    const countRed = this.events.filter((element) => element.bgndcolor === "#ff6060").length;
+    const countOrange = this.events.filter((element) => element.bgndcolor === "#ff9060").length;
+    if (countRed === 3){
+      alert("You have selected 3  very important events")
+    }
+    if (countOrange === 3){
+      alert("You have selected 3 less important events")
+    }
+  }
   //expansionStatus of an Mat expansion pannels | true = opened | false = closed
   expansionStatus1() {
     if (this.isOpened1 === false) {

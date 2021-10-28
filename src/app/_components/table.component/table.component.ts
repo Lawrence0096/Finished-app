@@ -5,9 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { Input } from '@angular/core';
 import { Events } from '../../_interfaces/events';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ThisReceiver } from '@angular/compiler';
-
-
 
 @Component({
   selector: 'app-table',
@@ -20,8 +17,7 @@ export class TableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-
-  @Output() listenToTableClick: EventEmitter<any> = new EventEmitter();
+  @Output() tableChange: EventEmitter<any> = new EventEmitter();
 
   @Input() displayedColumns: string[] = ["customColumn1"];
   @Input() dataSource!: MatTableDataSource<Events>
@@ -29,6 +25,8 @@ export class TableComponent implements OnInit {
   @Input() displayPaginator?: boolean;
 
   selection = new SelectionModel<any>(true, []);
+  events : any[] = new Array<any>() ;
+
 
   constructor() { }
 
@@ -36,11 +34,6 @@ export class TableComponent implements OnInit {
     this.dataSource.paginator = this.paginator
     console.log(this.displayedColumns)
   }
-
-  highlightedRows = [];
-
-
- 
 
   ngAfterViewInit() {
     this.setupTable()
@@ -50,59 +43,28 @@ export class TableComponent implements OnInit {
     this.setupTable()
   }
 
-  selectedRow:any;
-
-  selectedRowIndex = 0;
-
-
-  //Klik na tabelo metoda ***!
-  public getRecord(element: any): void { //ontablerowclick
-    //console.log(element)
-    this.listenToTableClick.emit(element) //ontablerowclickevent
-  }
-  public highlight(row: any): void { //ontablerowclick
-    //console.log(element)
-    this.selectedRowIndex = row.id;
-    this.selection.toggle(row)
+  public getRecord(row: any): void { //ontablerowclick
+    this.selection.toggle(row);
+    this.events = this.selection.selected
+    this.tableChange.emit(this.events) //ontablerowclickevent
   }
 
-  //metoda, ki poskrbi da se sort in paginator loadata, če ni dataSource prazen
   setupTable() {
     if (this.dataSource !== undefined) {
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort;
     }
   }
-
-
-  
-  //metoda za filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  objArray: [] = []
-  
+}
 
-  events : any[] = new Array<any>() ;
+//old
 
-
-  previousSelected: any;
-
-  //old method
-  toggleSelected(obj:any, event:any, alldata:any) {
-    
-      obj.isSelected = true;
-      this.events.push(obj)
-      console.log (this.events)
-      if (event.ctrlKey) {
-        obj.isSelected = !obj.isSelected;
-      } 
-      
-  } 
-
-  selectRow(row:any) {
+/* selectRow2(row:any) {
     this.selection.toggle(row);
     this.events = this.selection.selected
     console.log(this.events)
@@ -115,9 +77,7 @@ export class TableComponent implements OnInit {
     if (countOrange === 3){
       alert("You have selected 3 less important events")
     }
-  }
-}
-
+  }*/
 
 
 //
@@ -141,7 +101,18 @@ export class TableComponent implements OnInit {
     element.bgndcolor
   })*/
 
-
+/*
+  toggleSelected(obj:any, event:any, alldata:any) {
+    
+    obj.isSelected = true;
+    this.events.push(obj)
+    console.log (this.events)
+    if (event.ctrlKey) {
+      obj.isSelected = !obj.isSelected;
+    } 
+    
+} 
+*/
 
 /*const array = [
   {id: 12, name: 'toto'},

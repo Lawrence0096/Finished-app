@@ -1,28 +1,58 @@
 <div class="log-center">
-    <mat-card>
-      <mat-card-title>Register</mat-card-title>
-      <form >
-        <p>
-          <mat-form-field>
-            <input matInput type="text" placeholder="Email" >
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field>
-            <input matInput type="text" placeholder="Username" >
-          </mat-form-field>
-        </p> 
-        
-        
-        <p>
-          <mat-form-field style="margin-top: 2px;">
-            <input matInput type="password" placeholder="Password">
-          </mat-form-field>
-        </p>            
-        <div class="button">
-          <button type="submit" mat-button value="Log in">Register</button>
-        </div>
-      </form>
-      <button mat-button style="float: right; margin-top: -35.5px;" routerLink="/login">Cancel</button>
-    </mat-card>
-  </div>
+  <mat-card>
+    <mat-card-title>Register</mat-card-title>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <p>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Email" formControlName="email">
+        </mat-form-field>
+      </p>
+      <div *ngIf="isSubmitted && formControls.email.errors">
+        <mat-error *ngIf="formControls.email.errors.required" style="font-size: 10px; margin-top: -10.5px;">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="formControls.email.errors?.email" style="font-size: 10px; margin-top: -10.5px;">
+          Valid email address required
+        </mat-error>
+      </div>
+      <p>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Username" formControlName="username">
+        </mat-form-field>
+      </p>
+      <div *ngIf="isSubmitted && formControls.username.errors">
+        <mat-error *ngIf="formControls.username.errors.required" style="font-size: 10px; margin-top: -10.5px;">
+          Username is required
+        </mat-error>
+      </div>
+      <p>
+        <mat-form-field style="margin-top: 2px;">
+          <input matInput type="password" placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </p>
+
+      <div *ngIf="isSubmitted && formControls.password.errors">
+        <mat-error *ngIf="formControls.password.errors?.required" style="font-size: 10px; margin-top: -10.5px;">Password
+          is required</mat-error>
+        <mat-error *ngIf="formControls.password.errors?.minlength" style="font-size: 10px; margin-top: -10.5px;">
+          Password must be at least 6 characters</mat-error>
+      </div>
+      <div class="button">
+        <button type="submit" mat-button value="Log in">Register</button>
+      </div>
+    </form>
+    <button mat-button style="float: right; margin-top: -35.5px;" routerLink="/login">Cancel</button>
+  </mat-card>
+</div>
+
+
+
+<!-- <div class="form-group col">
+                    <label>Email</label>
+                    <input type="text" name="email" class="form-control" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+                    <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                        <div *ngIf="email.errors.required">Email is required</div>
+                        <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>-->

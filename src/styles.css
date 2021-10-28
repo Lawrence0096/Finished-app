@@ -92,3 +92,12 @@ th.mat-header-cell :nth-of-type(2), td.mat-cell :nth-of-type(2), td.mat-footer-c
 .mat-row:hover {
   background-color: #f8db7a!important;
 }
+
+.blue-snackbar {
+  background: #58b600;
+}
+
+/*.cdk-global-overlay-wrapper {
+  display: grid !important;
+  place-items: center !important;
+}*/

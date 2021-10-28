@@ -1,0 +1,47 @@
+<div class="log-center">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <p>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Username" formControlName="username" >
+        </mat-form-field>
+      </p>
+      <div *ngIf="isSubmitted && formControls.username.errors">
+        <mat-error 
+            *ngIf="formControls.username.errors.required" 
+            style="font-size: 10px; margin-top: -10.5px;" >Username is required
+        </mat-error>
+      </div>
+      <p>
+        <mat-form-field style="margin-top: 2px;">
+          <input matInput type="password" placeholder="Password"
+            formControlName="password">
+        </mat-form-field>
+      </p>     
+      <div *ngIf="isSubmitted && formControls.password.errors">
+        <mat-error 
+              *ngIf="formControls.password.errors?.required" 
+              style="font-size: 10px; margin-top: -10.5px;">Password is required
+        </mat-error>
+        <mat-error 
+              *ngIf="formControls.password.errors?.minlength" 
+              style="font-size: 10px; margin-top: -10.5px;">Password must be at least 6 characters
+        </mat-error>
+      </div>
+      <div *ngIf="isSubmitted"  style="color: red; font-size: 12px; margin-bottom: 10px;">       
+        <div  style="border: solid 1 px black; border-radius: 1px;  background-color: #f7f4f4;; 
+        width: 240px; height: 25px; display: flex; justify-content: space-between; gap: 10px;" >
+          <p style="margin-top: 3px; margin-left: 5px;">Wrong username or password</p> 
+          <button style="transform: scale(0.75); margin-top: -5px;" mat-button (click)='removeError()'>
+            <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+          </button>
+        </div>       
+      </div>
+      <div class="button">
+        <button type="submit" mat-button value="Log in">Login</button>       
+      </div>
+    </form>
+    <button mat-button style="float: right; margin-top: -35.5px;" routerLink="/register">Register</button>
+  </mat-card>
+</div>

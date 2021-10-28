@@ -1,12 +1,14 @@
 <ng-container *ngIf="isLoadingEventTableData$ | async">
-        <mat-progress-bar mode="indeterminate" style="height: 5px!important; margin-top: 20px;">
+        <mat-progress-bar mode="indeterminate" 
+                style="height: 5px!important; margin-top: 20px;">
         </mat-progress-bar>
         <div style="height: 6vh;"></div>
 </ng-container>
 <ng-container *ngIf="!(isLoadingEventTableData$ | async)"></ng-container>
-<app-table [displayFilter]='isLoadingTableFeatures' 
+<app-table 
+        [displayFilter]='isLoadingTableFeatures' 
         [displayPaginator]='isLoadingTableFeatures'
-        (listenToTableClick)='tableRowClick($event)' 
+        (tableChange)='eventsRowClick($event)' 
         [dataSource]='dashboardTableData'
         [displayedColumns]='dashboardTableColumsIndex'>
 </app-table>

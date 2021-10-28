@@ -24,6 +24,15 @@ export class SettingsMenuComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    let index = localStorage.getItem('userselection') || 0;
+    let displayedIndex2 = localStorage.getItem('userselectedIndex')
+    this.finalValue = displayedIndex2;
+    this.value = index;
+    //solves error ng0100 
+    this.cdRef.detectChanges(); 
+  }
+ 
   formatLabel(value: number) {
     return value;
   }
@@ -44,13 +53,4 @@ export class SettingsMenuComponent implements OnInit,AfterViewInit {
     this.eventsService.sliderData.next(this.finalValue);
     this.customerDetailService.sliderData.next(this.finalValue);
   }
-  ngAfterViewInit() {
-    let index = localStorage.getItem('userselection') || 0;
-    let displayedIndex2 = localStorage.getItem('userselectedIndex')
-    this.finalValue = displayedIndex2;
-    this.value = index;
-    //solves error ng0100 
-    this.cdRef.detectChanges(); 
-  }
- 
 }

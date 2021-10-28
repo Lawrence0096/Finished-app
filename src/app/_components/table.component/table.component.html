@@ -25,7 +25,7 @@
     <tr  mat-header-row *matHeaderRowDef="displayedColumns.slice(0,5); sticky: true"></tr>
     <tr  mat-row *matRowDef="let row; columns: displayedColumns.slice(0,5); let i=index" 
     [ngClass]="{highlighted: selection.isSelected(row)}" 
-      (click)="selectRow(row)"
+      (click)="getRecord(row)"
     [ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}" 
     ></tr>
                                                              

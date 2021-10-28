@@ -45,9 +45,7 @@ export class DashboardComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(SettingsMenuComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed();
   }
 
   //sends clicked data to clickedCompany Service 

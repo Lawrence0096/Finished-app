@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   //@ts-ignore
   loginForm: FormGroup;
  
-  inputVar: string = ""
   invalidLogin = false;
   isSubmitted = false;
 
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginForm = this.formBuilder.group({
-      email: ['',
+      username: ['',
         Validators.required],
       password: [
         '',
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
   get formControls() { return this.loginForm.controls; }
 
   login() {
-    if (this.loginservice.authenticate(this.loginForm.value.email,this.loginForm.value.password)) {
+    if (this.loginservice.authenticate(this.loginForm.value.username,this.loginForm.value.password)) {
       console.log(this.loginForm.value);
       this.router.navigateByUrl('/dashboard')
     }

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomerDetailComponent } from './customer-detail.component/customer-detail..component';
-import { EventsComponent } from './events.component/events.component';
-import { LoginComponent } from './login.component/login.component';
-import { DashboardComponent } from './dashboard.component/dashboard.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail..component';
+import { EventsComponent } from './events/events.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './_services/authguard.service';
 import { RegisterComponent } from './register/register.component';
 
@@ -26,7 +26,6 @@ const routes: Routes = [
       component: CustomerDetailComponent
    }
   ]},
-  
 ];
 
 @NgModule({
@@ -34,4 +33,4 @@ const routes: Routes = [
   exports: [RouterModule], providers: []
 })
 //@ts-ignore
-export class AppRoutingModule { }
+export class AppRoutingModule {}

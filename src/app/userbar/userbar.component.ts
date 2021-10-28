@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../_services/authentication.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Router } from '@angular/router';
-import { SettingsMenuComponent } from '../../settings-menu/settings-menu.component';
+import { SettingsMenuComponent } from '../settings-menu/settings-menu.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -22,7 +22,6 @@ export class UserbarComponent implements OnInit {
       this.router.navigate(['/login'])
   }
 
-  //1
   openDialog() {
     const dialogRef = this.dialog.open(SettingsMenuComponent);
     dialogRef.afterClosed().subscribe(result => {
