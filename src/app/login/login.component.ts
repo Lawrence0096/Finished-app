@@ -2,7 +2,9 @@ import { Component,OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
+import { EventsService } from '../_services/events.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder : FormBuilder, 
   private router : Router, 
+  private eventsService: EventsService,
   private loginservice: AuthenticationService ) { }
+
+
 
   ngOnInit(): void {
 
@@ -40,10 +45,32 @@ export class LoginComponent implements OnInit {
 
   get formControls() { return this.loginForm.controls; }
 
+
+
+  realLogin(){
+      if (this.loginForm.valid){
+        this.eventsService.userName.next(this.loginForm.value.username)
+        this.loginservice.login(this.loginForm.value.username, this.loginForm.value.password)
+        .pipe(first()).subscribe  (
+          data =>  {
+            this.router.navigateByUrl('/dashboard')
+          }
+        )
+
+      }
+      else{
+        this.isSubmitted = true;
+        this.invalidLogin = true;
+      }
+
+  }
+
+
   login() {
     if (this.loginservice.authenticate(this.loginForm.value.username,this.loginForm.value.password)) {
       console.log(this.loginForm.value);
       this.router.navigateByUrl('/dashboard')
+      
     }
     else {
       this.isSubmitted = true;

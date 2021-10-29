@@ -36,6 +36,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { fakeBackendProvider } from './fake-backend';
 
 
 @NgModule({
@@ -81,7 +82,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+      fakeBackendProvider
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

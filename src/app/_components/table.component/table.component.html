@@ -1,4 +1,5 @@
-<div style="display: flex; justify-content: space-between; background-color:white; margin-bottom: -20px;">
+<div style="display: flex; justify-content: space-between; background-color:white; 
+margin-bottom: -20px;">
   <!--Filter-->
   <mat-form-field *ngIf=displayFilter appearance="outline" style="margin-left: 10px;">
     <mat-label>Filter</mat-label>
@@ -9,30 +10,21 @@
     [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
   </mat-paginator>
 </div>
-
-
 <!--Table-->
 <div class="example-container mat-elevation-z8">
   <table mat-table matSort #table [dataSource]="dataSource">
-
-    
     <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns let i = index" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col}} </th> <!--Column Header-->
       <td mat-cell *matCellDef="let element" style="cursor: pointer;" > {{ element[col] }} </td> 
-      
     </ng-container>
-
     <tr  mat-header-row *matHeaderRowDef="displayedColumns.slice(0,5); sticky: true"></tr>
     <tr  mat-row *matRowDef="let row; columns: displayedColumns.slice(0,5); let i=index" 
     [ngClass]="{highlighted: selection.isSelected(row)}" 
       (click)="getRecord(row)"
     [ngStyle]= "{'background-color': row.bgndcolor !== null ? row.bgndcolor : 'green'}" 
-    ></tr>
-                                                             
+    ></tr>                                                             
   </table>
 </div>
-
-
 <!--.reverse()-->
  <!--1  slice(0,5)-->
 <!--<mat-card [ngStyle]= "{'background-color': item.bgndcolor !== null ? item.bgndcolor : ''}" class="MatcardDisk"></mat-card>-->

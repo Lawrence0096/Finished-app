@@ -5,7 +5,7 @@ import { CustomerDetailService } from '../_services/customer-detail.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import {MatDialog} from '@angular/material/dialog';
 import { SettingsMenuComponent } from '../settings-menu/settings-menu.component';
-
+import { EventsService } from '../_services/events.service';
 
 
 @Component({
@@ -16,6 +16,7 @@ import { SettingsMenuComponent } from '../settings-menu/settings-menu.component'
 })
 export class DashboardComponent implements OnInit {
   
+  user:any;
   item: any;
   customerList: any[] = [];
 
@@ -23,11 +24,13 @@ export class DashboardComponent implements OnInit {
     private customerDetailService:CustomerDetailService,
     private customerAPIservice: DashboardAPIService, 
     private authenticationService: AuthenticationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private eventsService: EventsService
     ) { }
 
   ngOnInit(): void {    
     this.getCustomer()
+    this.eventsService.userName.subscribe(data => {this.user = data, console.log(this.user)})
   }
 
   //fills navigation panel with customers from backend //refactor

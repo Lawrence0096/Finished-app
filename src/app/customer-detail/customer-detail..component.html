@@ -8,20 +8,18 @@
         <h1 style="font-family: 'Roboto', sans-serif; font-size: 17px; margin-top: -8px;">STRANKA:
           <b>{{(_selectedCustomer$ | async)?.name}}</b>
         </h1>
-        <ng-container *ngIf="showNoteMessage">
+        <ng-container *ngIf="(_selectedCustomer$ | async)?.companyDetails?.note?.data">
           <div class="Box_container"
             [ngStyle]="{'background-color': (_selectedCustomer$ | async)?.companyDetails?.note?.bgndcolor}">
-            <p id='Container_paragraph'>
+            <p style="margin-left: 5px;" id='Container_paragraph'>
               {{(_selectedCustomer$ | async)?.companyDetails?.note?.data}}
             </p>
           </div>
         </ng-container>
-        <br>
         <div class="example-action-buttons">
           <button mat-button (click)="openAll()">Expand All</button>
           <button mat-button (click)="closeAll()">Collapse All</button>
         </div>
-        
         <mat-accordion>
           <mat-expansion-panel [expanded]="isOpened2" (click)=expansionStatus2()>
             <mat-expansion-panel-header>
@@ -263,8 +261,7 @@
                       Min: <b> {{(_selectedCustomer$ |
                         async)?.companyDetails?.tracknav?.communication?.outbound?.http_intout?.min}}</b><br>
                     </p>
-                  </mat-card>
-                  
+                  </mat-card>                 
                 </div>
               </mat-card>
             </div>

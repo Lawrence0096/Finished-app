@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../_components/snackbar/snackbar.component';
+import { FakeAPIService } from '../_services/fake-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,12 @@ import { SnackbarComponent } from '../_components/snackbar/snackbar.component';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formBuilder : FormBuilder, private _snackBar: MatSnackBar) { }
+  constructor(
+    private formBuilder : FormBuilder, 
+    private _snackBar: MatSnackBar,
+    private fakeAPIService:FakeAPIService ,
+    private router: Router
+    ) { }
   
   isSubmitted: boolean = false;
   isSuccessful: boolean = false;
@@ -31,7 +38,7 @@ export class RegisterComponent implements OnInit {
         '',
         //solved bug, by puting validators into [], otherwise min and max lenght won't work
         [Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(6),
         Validators.maxLength(32)]]
     });
   }
@@ -40,13 +47,27 @@ export class RegisterComponent implements OnInit {
 
     register(){
       this.isSubmitted = true;
-      if (this.registerForm.valid) {
+      this.fakeAPIService.register(this.registerForm.value)
+        .subscribe( data => {
+          
+          
+          if (this.registerForm.valid){
+            this._snackBar.openFromComponent(SnackbarComponent, {
+              duration: this.durationInSeconds * 1000, verticalPosition: 'top',
+              panelClass: ['blue-snackbar']})
+
+              this.router.navigate(['/login']);       
+          }
+        }
+          
+        )
+      /*if (this.registerForm.valid) {
         console.log(this.registerForm.value);
         this._snackBar.openFromComponent(SnackbarComponent, {
           duration: this.durationInSeconds * 1000, verticalPosition: 'top',
           panelClass: ['blue-snackbar']
         });
-      }
+      }*/
     }
 }
 

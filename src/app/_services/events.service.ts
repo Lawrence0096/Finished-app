@@ -10,6 +10,8 @@ import { Events } from '../_interfaces/events';
 })
 export class EventsService {
 
+  
+
   constructor(private dashboardAPIService: DashboardAPIService) { }
 
   public IsloadingEventTableData = new BehaviorSubject<boolean>(false);
@@ -26,4 +28,6 @@ export class EventsService {
 //refactor
 
   sliderData: BehaviorSubject<any> = new BehaviorSubject<any>(60000);
+  userName: BehaviorSubject<any> = new BehaviorSubject<any>("Hello");
+  
 }

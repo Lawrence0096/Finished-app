@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor() {}
+  constructor(private http : HttpClient) {}
 
   authenticate(username: string, password: string) {
     if (username === 'admin' && password === 'admin') {
@@ -15,12 +17,31 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
+    let user = localStorage.getItem('currentUser')
+    console.log(localStorage)
     console.log(!(user === null))
     return !(user === null)
   }
 
   logOut() {
-    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('currentUser')
   }
+
+  login(username: string , password: string){
+    return this.http.post<any>(`/users/authenticate`, {username, password})
+    .pipe(map(user =>{
+      if (user){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        console.log(user)
+      }
+      return user   
+    } 
+    
+      
+  ))
+
+
+  }
+
+
 }

@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Router } from '@angular/router';
 import { SettingsMenuComponent } from '../settings-menu/settings-menu.component';
 import {MatDialog} from '@angular/material/dialog';
+import { EventsService } from '../_services/events.service';
 
 @Component({
   selector: 'app-userbar',
@@ -11,10 +12,14 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class UserbarComponent implements OnInit {
 
+  user:any;
+
   constructor( private authenticationService:AuthenticationService, 
+    private eventsService: EventsService, 
   private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.eventsService.userName.subscribe(data => {this.user = data, console.log(data)})
   }
 
   logout(){
